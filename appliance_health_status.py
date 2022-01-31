@@ -42,4 +42,5 @@ def appliance_health_status():
 
 ### __main__
 
-appliance_health_status()
+# remove comment below for direct call
+# appliance_health_status()
