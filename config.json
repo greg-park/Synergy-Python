@@ -1,0 +1,31 @@
+{
+  "ip": "10.10.108.1",
+  "image_streamer_ip": "",
+  "api_version": 3400,
+  "ssl_certificate": "",
+  "credentials": {
+    "userName": "Administrator",
+    "authLoginDomain": "",
+    "password": "HP1nvent",
+    "sessionID": ""
+  },
+  "enclosure_hostname": "",
+  "enclosure_username": "",
+  "enclosure_password": "",
+  "enclosure_group_uri": "",
+  "server_mpHostsAndRanges": [],
+  "server_hostname": "",
+  "server_username": "",
+  "server_password": "",
+  "storage_system_hostname": "",
+  "storage_system_username": "",
+  "storage_system_password": "",
+  "power_device_hostname": "",
+  "power_device_username": "",
+  "power_device_password": "",
+  "subnet_networkid": "",
+  "subnet_mask": "",
+  "subnet_gateway": "",
+  "range_start_address": "",
+  "range_end_address": ""
+}
