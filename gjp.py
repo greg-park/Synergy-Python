@@ -5,7 +5,7 @@
 ###
 
 # GJP updates.  Change to "main" that calls as a function
-import appliance_health_status as appliance_health
+from appliance_health_status omport appliance_health_status
 
 # check the appliance health
-appliance_health()
+appliance_health_status()
