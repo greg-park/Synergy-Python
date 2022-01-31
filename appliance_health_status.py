@@ -21,7 +21,7 @@ from pprint import pprint
 from hpeOneView.oneview_client import OneViewClient
 from config_loader import try_load_from_file
 
-def appliance_health_status():
+def appliance_health():
     config = {
         "ip": "<oneview_ip>",
         "credentials": {
@@ -43,4 +43,4 @@ def appliance_health_status():
 ### __main__
 
 # remove comment below for direct call
-# appliance_health_status()
+# appliance_health()
