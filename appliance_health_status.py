@@ -37,10 +37,9 @@ def appliance_health():
 
     # Get health status information from appliance
     print("\nGet health status information from appliance:\n ")
-    health_status = app_health.get_health_status()
-    pprint(health_status.data)
-
+    return app_health.get_health_status()
 ### __main__
 
-# remove comment below for direct call
-# appliance_health()
+# remove comment below for direct callapp_health
+# health_status = appliance_health()
+# pprint(health_status.data)
