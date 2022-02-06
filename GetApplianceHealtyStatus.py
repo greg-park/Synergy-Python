@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ###
-# (C) Copyright [2019] Hewlett Packard Enterprise Development LP
+# (C) Copyright [2021] Hewlett Packard Enterprise Development LP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,13 @@
 # limitations under the License.
 ###
 
+# GJP updates.  Change to "main" that calls as a function
+
 from pprint import pprint
 from hpeOneView.oneview_client import OneViewClient
-from config_loader import try_load_from_file
+from ConfigLoader import try_load_from_file
 
-def version():
+def appliance_health():
     config = {
         "ip": "<oneview_ip>",
         "credentials": {
@@ -30,12 +32,14 @@ def version():
 
     # Try load config from a file (if there is a config file)
     config = try_load_from_file(config)
-
     oneview_client = OneViewClient(config)
+    app_health = oneview_client.appliance_health_status
 
-    # Get the current version and the minimum version
-    print("Get the current version and the minimum version")
-    version = oneview_client.versions.get_version()
-    pprint(version)
+    # Get health status information from appliance
+    print("\nGet health status information from appliance:\n ")
+    return app_health.get_health_status()
+### __main__
 
-# version()
+# remove comment below for direct callapp_health
+# health_status = appliance_health()
+# pprint(health_status.data)

@@ -41,14 +41,12 @@ def GetServers():
     return servers
 
 def ListServers(svrList = [], *args):
-    i = 0
-    for s in svrs:
-        print(svrs[i]['iloIP'])
-        i = i + 1
+    for s in svrList:
+        print(s['iloIP'])
 
 if __name__ == "__main__":
     svrs = []
-    print ("Build the dictionary of server info")
+    print ("I'm Here!")
     svrs = GetServers()
-    print ("Now lets call ListServers")
+#    print ("Now lets call ListServers")
     ListServers(svrs)
