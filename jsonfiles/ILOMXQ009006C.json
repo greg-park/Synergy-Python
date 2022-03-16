@@ -1,0 +1,13 @@
+{
+     "basename": "synergy_svr",
+     "hostnet": "10.10.108",
+     "OS": "CentOS-8.5.2111-x86_64-dvd1.iso",
+     "isoDir": "ISO",
+     "httpServer": "http://10.10.108.20",
+     "spt": "RHEL_Local_BootTemplate",
+     "template_ks": "ksTemplate.cfg",
+     "custom_ks": "KS_CUST.CFG",
+     "hostname": "synergy_svr_57",
+     "hostIP": "10.10.108.57",
+     "iloIP": "10.10.108.57"
+}

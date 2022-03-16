@@ -23,30 +23,50 @@
 #
 
 import csv
+from pprint import pprint
+from hpeOneView.oneview_client import OneViewClient
+from ConfigLoader import try_load_from_file
 
-def GetServers():
+def GetServers(dc_info):
     servers = []
     count = 0
-    # opening the CSV file
-    with open('data.csv', mode ='r') as file:   
-
-           # reading the CSV file
-           csvFile = csv.DictReader(file)
-    
-           # displaying the contents of the CSV file
-           for lines in csvFile:
-               servers.append(lines)
-               # print(servers[count]['iloIP'])
-               count = count + 1
+    for server in dc_info['server_mpHostsAndRanges']:
+        servers.append(server)
     return servers
 
 def ListServers(svrList = [], *args):
     for s in svrList:
-        print(s['iloIP'])
+        print(s)
 
+def DCInfo():
+    config = {
+        "ip": "<oneview_ip>",
+        "num_enclosures":"<num_enclosures>",
+        "num_hosts":"<num_hosts>",
+        "host_names":"<server_hostnames>",
+        "encl_names":"<enclosure_names>",
+        "credentials": {
+            "userName": "<username>",
+            "password": "<password>"
+        }
+    }
+
+    # Try load config from a file (if there is a config file)
+    config = try_load_from_file(config)
+    # return Data Center info(config)
+    return config
+
+### __main__
 if __name__ == "__main__":
-    svrs = []
-    print ("I'm Here!")
-    svrs = GetServers()
+    dc_config = DCInfo()
+    for applianceIP in (dc_config['enclosure_ip_range']):
+        print("Appliance IP : ",applianceIP)
+
+    for iloHost in (dc_config['server_mpHostsAndRanges']):
+        print(iloHost)
+    #svrs = []
+    #svrs = GetServers()
 #    print ("Now lets call ListServers")
-    ListServers(svrs)
+    #ListServers(svrs)
+
+    
