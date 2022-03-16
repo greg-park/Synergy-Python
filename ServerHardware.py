@@ -14,18 +14,67 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ###
+#
+# Mac to IPv6 info at https://networklessons.com/ipv6/ipv6-eui-64-explained
 
-from asyncio import subprocess
-from pprint import pprint
 from hpeOneView.oneview_client import OneViewClient
 from hpeOneView.exceptions import HPEOneViewException
 from ConfigLoader import try_load_from_file
+import json
 
-# GJP code
-import platform
-import subprocess
+# Functions used for program
 #
+# code adapted from https://stackoverflow.com/questions/37140846/how-to-convert-ipv6-link-local-address-to-mac-address-in-python
+# for the conversion process check https://nettools.club/mac2ipv6 
+#
+# mac2ipv6 - convert a HW MAC Id to a IPv6 address 
+# based on standards
+# input = macID in AA:BB:CC:DD:EE:FF format
+# return = IPv6 address as link local (fe80) address
 
+def mac2ipv6(mac):
+    parts = mac.split(":")
+    parts.insert(3, "ff")
+    parts.insert(4, "fe")
+    parts[0] = "%x" % (int(parts[0], 16) ^ 2)
+
+    # format output
+    ipv6Parts = []
+    for i in range(0, len(parts), 2):
+        ipv6Parts.append("".join(parts[i:i+2]))
+    ipv6 = "fe80::%s/64" % (":".join(ipv6Parts))
+    return ipv6
+
+# ipv62mac - convert a IPv6 address to HW MAC Id
+# based on standards
+# input = ipv6 address as A:B:C:D:E:F:G:H format
+# return = MAC Id as AA:BB:CC:DD:EE:FF format
+
+def ipv62mac(ipv6):
+    # remove subnet info if given
+    subnetIndex = ipv6.find("/")
+    if subnetIndex != -1:
+        ipv6 = ipv6[:subnetIndex]
+
+    ipv6Parts = ipv6.split(":")
+    macParts = []
+    for ipv6Part in ipv6Parts[-4:]:
+        while len(ipv6Part) < 4:
+            ipv6Part = "0" + ipv6Part
+        macParts.append(ipv6Part[:2])
+        macParts.append(ipv6Part[-2:])
+
+    # modify parts to match MAC value
+    macParts[0] = "%02x" % (int(macParts[0], 16) ^ 2)
+    del macParts[4]
+    del macParts[3]
+
+    return ":".join(macParts)
+
+###
+# __main__
+# Grab info for Synergy Appliance.
+# NOTE: THIS USES CLEAR TEXT PASSWORDS!
 config = {
     "ip": "<oneview_ip>",
     "credentials": {
@@ -36,210 +85,27 @@ config = {
 
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
-
-variant = 'Synergy'
-options = {
-    "hostname": config['server_hostname'],
-    "username": config['server_username'],
-    "password": config['server_password'],
-    "licensingIntent": "OneView",
-    "configurationState": "Managed"
-}
-
 oneview_client = OneViewClient(config)
 server_hardwares = oneview_client.server_hardware
 
+# Open a file for the MAC ID information
+installJson = "./jsonfiles/MACids.json"
+df = open(installJson, 'w')
+# Could add a write to the file for column lables, change file to .csv, etc.
+
 # Get list of all server hardware resources
-servers = []
-print("Get list of all server hardware resources")
+#
+# Build a list of any IPv4 addresses found (servers)
+# Create a text file with the FrameName, Server Slot and MAC ID
+print("Get list of all server hardware Appliance")
 server_hardware_all = server_hardwares.get_all()
 for serv in server_hardware_all:
-    print('Hostname  %s' % serv['name'])
-    print('iLO Name  %s' % serv['mpHostInfo']['mpHostName'])
     for k, v in serv['mpHostInfo'].items():
         if k == "mpIpAddresses":
+            frame = serv['locationUri'].split("/")
             iLO_IP = v[len(v)-1]['address']
-            print("iLO IP Address: ", iLO_IP)
-    servers.append(serv['name'])
-
-# Get recently added server hardware resource by name
-if server_hardware_all:
-    server = server_hardwares.get_by_name(servers[0])
-    for k,v in server.data.items():
-        if k =="mpHostInfo":
-            ilo_info = server.data['mpHostInfo']
-            IpAddresses = ilo_info['mpIpAddresses']
-            for item in IpAddresses:
-                parts = item['address'].split(".")
-                if len(parts) == 4:
-                    host = (item['address'])
-                    param = '-n' if platform.system().lower()=='windows' else '-c'
-                    # Building the command. Ex: "ping -c 1 google.com"
-                    command = ['ping', param, '1', host]
-                    rst = subprocess.check_output(command)
-                    if (rst):
-                        print("Found iLO")
-
-# Create a rack-mount server
-# This is only supported on appliance which support rack mounted servers
-#if variant != 'Synergy':
-#    added_server = server_hardwares.add(options)
-#    print("Added rack mount server '%s'.\n  uri = '%s'" % (added_server.data['name'], added_server.data['uri']))
-
-# Create Multiple rack-mount servers
-# This is only supported on appliance which support rack mounted servers
-#if variant != 'Synergy':
-#    options_to_add_multiple_server = {
-#        "mpHostsAndRanges": config['server_mpHostsAndRanges'],
-#        "username": config['server_username'],
-#        "password": config['server_password'],
-#        "licensingIntent": "OneView",
-#        "configurationState": "Managed",
-#    }
-#    multiple_server = server_hardwares.add_multiple_servers(options_to_add_multiple_server)
-#    pprint(multiple_server.data)
-#else:
-#    print("\nCANNOT CREATE MULTIPLE SERVERS! Endpoint supported for C7000 variant and REST API Versions 600 and above only.\n")
-
-# Get recently added server hardware resource by uri
-# if server:
-#     server_byId = server_hardwares.get_by_uri(server.data['uri'])
-#     print("Found server {} by uri.\n  uri = {}" .format(
-#           str(server_byId.data['name']), str(server_byId.data['uri'])))
-
-# Get Statistics with defaults
-# print("Get server-hardware statistics")
-# if server:
-#     server_utilization = server.get_utilization()
-#     pprint(server_utilization)
-
-# Get Statistics specifying parameters
-# print("Get server-hardware statistics specifying parameters")
-# if server:
-#     server_utilization = server.get_utilization(fields='AveragePower',
-#                                                 filter='startDate=2016-05-30T03:29:42.000Z',
-#                                                 view='day')
-#     pprint(server_utilization)
-
-# Get list of BIOS/UEFI Values
-# print("Get list of BIOS/UEFI Values")
-# if server:
-#     bios = server.get_bios()
-#     pprint(bios)
-
-# Get the settings that describe the environmental configuration of server
-# print(
-#     "Get the settings that describe the environmental configuration of server")
-# if server:
-#     server_envConf = server.get_environmental_configuration()
-#     pprint(server_envConf)
-
-# Set the calibrated max power of an unmanaged or unsupported server
-# hardware resource
-# print("Set the calibrated max power of an unmanaged or unsupported server hardware resource")
-# configuration = {
-#     "calibratedMaxPower": 2500
-# }
-# if server and server.data['state'] == 'Unmanaged':
-#     server_updated_encConf = server.update_environmental_configuration(configuration)
-
-# Get URL to launch SSO session for iLO web interface
-# if server:
-#     ilo_sso_url = server.get_ilo_sso_url()
-#     print("URL to launch a Single Sign-On (SSO) session for the iLO web interface for server at uri:\n",
-#           "{}\n   '{}'".format(server.data['uri'], ilo_sso_url))
-
-# Generates a Single Sign-On (SSO) session for the iLO Java Applet console
-# and return URL to launch it
-# if server:
-#     java_remote_console_url = server.get_java_remote_console_url()
-#     print("URL to launch a Single Sign-On (SSO) session for the iiLO Java Applet console for server at uri:\n",
-#           "   {}\n   '{}'".format(server.data['uri'], java_remote_console_url))
-
-# Update iLO firmware to minimum version required
-# if server:
-#     server.update_mp_firware_version()
-#     print("Successfully updated iLO firmware on server at\n  uri: '{}'".format(server.data['uri']))
-
-# Request power operation to change the power state of the physical server.
-# configuration = {
-#     "powerState": "Off",
-#     "powerControl": "MomentaryPress"
-# }
-# if server:
-#     server_power = server.update_power_state(configuration)
-#     print("Successfully changed the power state of server '{name}' to '{powerState}'".format(**server_power))
-
-# Refresh server state
-# configuration = {
-#     "refreshState": "RefreshPending"
-# }
-# if server:
-#     server_refresh = server.refresh_state(configuration)
-#     print("Successfully refreshed the state of the server at:\n   'uri': '{}'".format(
-#         server_refresh['uri']))
-
-# Get URL to launch SSO session for iLO Integrated Remote Console
-# Application (IRC)
-# You can also specify ip or consoleType if you need, inside function get_remote_console_url()
-# if server:
-#     remote_console_url = server.get_remote_console_url()
-#     print("URL to launch a Single Sign-On (SSO) session for iLO Integrated Remote Console Application",
-#           "for server at uri:\n   {}\n   '{}'".format(server.data['uri'], remote_console_url))
-
-# if oneview_client.api_version >= 300 and server:
-#     # These functions are only available for the API version 300 or higher
-# 
-#     # Turn the Server Hardware led light On
-#     server.patch('replace', '/uidState', 'On')
-#     print("Server Hardware led light turned on")
-# 
-#     # Get a Firmware by Server Hardware ID
-#     print("Get a Firmware by Server Hardware ID")
-#     p = server.get_firmware()
-#     pprint(p)
-# 
-    # Get all server hardware firmwares
-#     print("Get all Server Hardware firmwares")
-#     p = server_hardwares.get_all_firmwares()
-#     pprint(p)
-
-    # Get server hardware firmwares filtering by server name
-#     print("Get Server Hardware firmwares filtering by server name")
-#     p = server_hardwares.get_all_firmwares(filter="serverName='{}'".format(server.data['name']))
-#     pprint(p)
-
-# if oneview_client.api_version >= 500 and server and server.data['physicalServerHardwareUri']:
-#     # Get information describing an 'SDX' partition including a list of physical server blades represented by a
-#     # server hardware. Only supported by SDX enclosures.
-#     print("Get SDX physical server hardware")
-#     sdx_server = server.get_physical_server_hardware()
-#     pprint(sdx_server)
-
-# This operation works from Oneview API Version 1800.
-# if oneview_client.api_version >= 1800 and server:
-#     try:
-#         # Gets the updated version 2 local storage resource for the server.
-#         print("Get updated local storage resource of server hardware")
-#         local_storage = server.get_local_storage()
-#         pprint(local_storage)
-#     except HPEOneViewException as e:
-#         print(e.msg)
-
-# We can remove DL_server only when no ServerProfile is applied to it.
-# Retrieving DL_server with specific 'NoProfileApplied' state to delete.
-# for dl_server in server_hardware_all:
-#     if ((dl_server['state'] == 'NoProfileApplied') and ('BL' not in dl_server['model'])):
-#         server_can_be_deleted = dl_server
-# 
-# if server_can_be_deleted:
-#     removed_server = server_hardwares.get_by_name(server_can_be_deleted['name'])
-
-# Remove rack server
-# This is only supported on appliance which support rack mounted servers
-# if variant != 'Synergy' and removed_server:
-#     try:
-#         removed_server.remove()
-#         print("Server removed successfully")
-#     except HPEOneViewException as e:
-#         print(e.msg)
+            mac = ipv62mac(v[0]['address'])
+            location = frame[len(frame)-1]
+            outstring = location+','+str(serv['position'])+','+mac+','+iLO_IP
+            df.write(outstring)
+            df.write('\n')
