@@ -4,7 +4,7 @@
   "server_hostnames":"sy480_gjp",
   "num_enclosures":1,
   "num_hosts":60,  
-  "ip": "10.10.108.1",
+  "ip": "192.168.0.65",
   "image_streamer_ip": "",
   "api_version": 3400,
   "ssl_certificate": "",
@@ -19,6 +19,7 @@
   "storage_system_hostname": "",
   "storage_system_username": "",
   "storage_system_password": "",
+  "spt":"ahold-vm-6.5",
   "power_device_hostname": "",
   "power_device_username": "",
   "power_device_password": "",
@@ -40,7 +41,6 @@
     "OS":"CentOS-8.5.2111-x86_64-dvd1.iso",
     "isoDir":"ISO",
     "httpServer":"http://10.10.108.20",
-    "spt":"RHEL_Local_BootTemplate",
     "template_ks":"ksTemplate.cfg",
     "custom_ks":"KS_CUST.CFG"
   }

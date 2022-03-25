@@ -9,6 +9,8 @@ from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
 import json
+#import inspect
+#from itertools import ifilter
 
 config = {
     "ip": "<oneview_ip>",
@@ -19,14 +21,14 @@ config = {
     "api_version": "<api_version>"
 }
 
+def save_file(data_file, outfile, m):
+     with open(file=outfile, mode=m) as output_file:
+         json.dump(data_file, output_file, indent=5)
+ 
 JSON_DIR = ".\jsonfiles\\"
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
 oneview_client = OneViewClient(config)
-
-def save_file(data_file, outfile, m):
-    with open(file=outfile, mode=m) as output_file:
-        json.dump(data_file, output_file, indent=5)
 
 # Get configured network interface from appliance
 print("Get network interface details from appliance: ")
@@ -34,8 +36,8 @@ print("Get network interface details from appliance: ")
 network_interfaces = oneview_client.appliance_network_interfaces.get_all().data['applianceNetworks']
 outnames = network_interfaces[0]['hostname']
 rootname = outnames.split('.')[0]
-print(rootname)
 
+# print(rootname)
 outfile=JSON_DIR+"appliance_networks.json"
 save_file(network_interfaces, outfile,"w")
 
@@ -80,7 +82,6 @@ open(outfile,"w")
 with open(file=outfile, mode="w") as output_file:
     for svr in servers:
         save_file(svr, outfile,"a+")
-        print(svr)
 
 print("Get all the defined Networks from appliance: ")
 ethernet_networks = oneview_client.ethernet_networks

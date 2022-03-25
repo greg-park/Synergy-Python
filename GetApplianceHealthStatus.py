@@ -23,16 +23,21 @@ from hpeOneView.oneview_client import OneViewClient
 from ConfigLoader import try_load_from_file
 import platform    # For getting the operating system name
 import subprocess  # For executing a shell command
+import json
 
+config = {
+    "ip": "<oneview_ip>",
+    "credentials": {
+        "userName": "<username>",
+        "password": "<password>"
+    }
+}
 # Check Appliance Health (Appliance IP, username, password)
 def appliance_health(config):
-
-    print("Check appliance : ", config['ip'])
     if ping(config['ip']):
-        print("Enclosure IP is up!")
+#        print("Enclosure IP is up!")
         oneview_client = OneViewClient(config)
         app_health = oneview_client.appliance_health_status
-        print("\nGet health status information from appliance:\n ")
         return app_health.get_health_status()
     else:
         print("Enclosure not found or not healthy!")
@@ -51,8 +56,9 @@ def ping(host_or_ip, packets=1, timeout=1000):
 
 ### __main__
 if __name__ == "__main__":
-    appliance = appliance_health()
+    config = try_load_from_file(config)
+    appliance = appliance_health(config)
     if appliance:
-        print("Success!")
+        print("Success! Appliance IP valid and appliance is healty")
     else:
         print("Error creating enclosure and Data Center info")

@@ -89,6 +89,7 @@ oneview_client = OneViewClient(config)
 server_hardwares = oneview_client.server_hardware
 
 # Open a file for the MAC ID information
+# really a CSV file, not .json
 installJson = "./jsonfiles/MACids.json"
 df = open(installJson, 'w')
 # Could add a write to the file for column lables, change file to .csv, etc.
