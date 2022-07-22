@@ -82,6 +82,12 @@ open(outfile,"w")
 with open(file=outfile, mode="w") as output_file:
     for svr in servers:
         save_file(svr, outfile,"a+")
+        frame = svr['locationUri'].split("/")
+        location = frame[len(frame)-1]
+        bay = svr['position']
+        print("============")
+        #pprint(svr['portMap']['deviceSlots'][0]['physicalPorts''interconnectPort'])
+        print(location,',',bay,',',svr['portMap']['deviceSlots'][0]['physicalPorts'][0]['wwn'])
 
 print("Get all the defined Networks from appliance: ")
 ethernet_networks = oneview_client.ethernet_networks
