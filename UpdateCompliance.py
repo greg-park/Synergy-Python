@@ -1,9 +1,21 @@
-from fileinput import filename
+##############################################################################
+# UpdateCompliance.py
+# - Script for compliance of profiles vs SPT.
+#
+#   VERSION 1.0
+#   Date:
+#   Input: config.json
+#   Output: Status during execution
+#
+#   Changes:
+#
+#   Notes:
+#
+############################################################################## 
+
 from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
-import json
-import time
 
 #from itertools import ifilter
 
