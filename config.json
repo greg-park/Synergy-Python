@@ -26,6 +26,7 @@
   "power_device_username": "",
   "power_device_password": "",
   "profile_name": "cbatch",
+  "profile_number": "000",
   "profile_template": "spt",
   "subnet_networkid": "",
   "subnet_mask": "",
