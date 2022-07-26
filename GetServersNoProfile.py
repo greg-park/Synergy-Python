@@ -27,8 +27,7 @@ from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
 import json
-#import inspect
-#from itertools import ifilter
+import time
 
 config = {
     "ip": "<oneview_ip>",
@@ -40,6 +39,10 @@ config = {
     "profile_template": "<profile_template>",
     "server_hardware_type": "<server_hardware_type>",
     "api_version": "<api_version>"
+}
+configuration = {
+    "powerState": "Off",
+    "powerControl": "PressAndHold"
 }
 
 JSON_DIR = ".\jsonfiles\\"
@@ -86,31 +89,36 @@ for enclosure in enclosure_resource.get_all(sort='name:ascending'):
             svr = servers.get_by_uri(db['deviceUri'])
 
             if (svr.data['serverHardwareTypeUri']) == (hardware_type.data["uri"]):
-                pprint("Enclosure {} Device Bay {} Device {}".format(enc_count, dbcnt, db['devicePresence']))
-                
-                bay = str(profile_number)
-                if str(db['profileUri']) == "None":
-                    if len(bay)==1:
-                        i = '00'+bay
-                    elif len(bay)==2:
-                        i = '0'+bay
-                    elif len(bay)==3:
-                        i = bay
+                if str(svr.data['serverProfileUri']) == "None":
+                    pprint("Enclosure {} Device Bay {} Device {} Power {}".format(enc_count, dbcnt, db['devicePresence'],svr.data['powerState']))
+                    if svr.data['powerState'] == "On":
+                        server_power = svr.update_power_state(configuration)
+#                       Sleep for 10 seconds to allow for power to shutdown.  Servers take at least
+#                       6 seconds.  This prevents problems with applying profiles too quickly
+                        time.sleep(10)
+                        print("Successfully changed the power state of server '{name}' to '{powerState}'".format(**server_power))
 
+                    bay = str(profile_number)
+                    if str(db['profileUri']) == "None":
+                        if len(bay)==1:
+                            i = '00'+bay
+                        elif len(bay)==2:
+                            i = '0'+bay
+                        elif len(bay)==3:
+                            i = bay
+ 
                     profile_name = config['profile_name'] + "_"+str(enc_count)+"_"+str(i)
                     profile_number = profile_number+1
                     server_template = profile_templates.get_by_name(profile_template_name)
                     uri = str(svr.data['uri'])
-
                     basic_profile_options = dict(
                         name=profile_name,
                         serverHardwareUri=uri,
-                        affinity="Bay",
                         serverProfileTemplateUri=server_template.data["uri"],
                         serverHardwareTypeUri = hardware_type.data["uri"],
                         enclosureGroupUri = enclosure_group.data["uri"]
                     )
-
+                    
                     profile = server_profiles.get_by_name(profile_name)
                     if profile:
                         print("Found profile with name '{}' and uri '{}'".format(profile.data['name'], profile.data['uri']))
@@ -119,12 +127,3 @@ for enclosure in enclosure_resource.get_all(sort='name:ascending'):
                         print("Create profile with name '{}'".format(profile_name))
                         # server_profiles.create()
                         profile_list.append(profile)
-
-print("\nUpdate the profile configurations from server profile template, if needed")
-for s in profile_list:
-    pprint(s.data['name'])
-    profile = server_profiles.get_by_name(s.data['name'])
-    if profile:
-        profile.patch(operation="replace",
-            path="/templateCompliance", value="Compliant")
-       # pprint(profile.data)
