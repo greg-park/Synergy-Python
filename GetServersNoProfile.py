@@ -87,7 +87,6 @@ for enclosure in enclosure_resource.get_all(sort='name:ascending'):
         if "server-hardware" in (str(db['deviceUri'])):
             count = count+1
             svr = servers.get_by_uri(db['deviceUri'])
-
             if (svr.data['serverHardwareTypeUri']) == (hardware_type.data["uri"]):
                 if str(svr.data['serverProfileUri']) == "None":
                     pprint("Enclosure {} Device Bay {} Device {} Power {}".format(enc_count, dbcnt, db['devicePresence'],svr.data['powerState']))
