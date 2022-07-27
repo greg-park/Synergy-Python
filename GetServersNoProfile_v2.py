@@ -23,11 +23,9 @@
 ############################################################################## 
 
 from fileinput import filename
-from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
-import json
-import time
+import sys
 
 config = {
     "ip": "<oneview_ip>",
@@ -73,37 +71,41 @@ server_model = config["server_model"]
 hardware_type = server_hardware_types.get_by_name(server_hardware_type_name)
 enclosure_group = enclosure_groups.get_by_name(enclosure_group_name)
 
-enc_count = 0
-dbcnt = 0
-profile_list = []
-
 encsize = len([ele for ele in enclosure_resource.get_all() if isinstance(ele, dict)])
-print (str(encsize))
 enclosures = enclosure_resource.get_all()
 testloop = ['0']
 
-# this loop can be changed to "testloop" to limit number of servers 
-for count, item in enumerate(testloop):
-#    print(enclosure[count])
-#for enclosure in enclosure_resource.get_all(sort='name:ascending'):
-#    # pprint(enclosure)
-#    enc_count = enc_count + 1
+# this loop can be changed to "testloop" to limit number of servers
+# 
+# Loop through all the enclosures enumerated 
+for count, item in enumerate(enclosures):
+    print("Checking Enclosure {} device bays".format(count))
+# Add flag to allow user to break out of loop.
+# Note: this is for debugging.  Should be removed to "Just Do It"
+    break_out = input("Should I continue? ")
+    if break_out == 'y':
+        print("Ok, continuing")
+    else:
+        break
+
     enclosure = enclosures[count]
-    dbcnt = 0
     for db in enclosure['deviceBays']:
-        dbcnt = dbcnt+1
-        print(db['deviceUri'])
+# loop through each of the device bays (db)
         if "server-hardware" in (str(db['deviceUri'])):
             svr = servers.get_by_uri(db['deviceUri'])
-            print(svr.data['serverHardwareTypeUri'], hardware_type.data['uri'])
+# check the dict variable data[serverHardwareTypeURI] vs uri of HW type
             if (svr.data['serverHardwareTypeUri']) == (hardware_type.data["uri"]):
-                print("Hardware URI")
+# we found the matching HW
+# Now check the profile URI.  If it is set to None then no profile exists
                 if str(svr.data['serverProfileUri']) == "None":
-                    pprint("Enclosure {} Device Bay {} Device {} Power {}".format(enc_count, dbcnt, db['devicePresence'],svr.data['powerState']))
+                    print("Enclosure:{:2s} Device Bay:{:2s} Server Model:{:20s} Power:{:3s}".format(str(count), str(db['bayNumber']), svr.data['model'],svr.data['powerState']))
+# Check the power and if ON then skip this server
                     if svr.data['powerState'] == "On":
                         print("Skipping server '{}' power is '{}'".format(svr.data['name'],svr.data['powerState']))
                     else:
-                        bay = str(profile_number)
+# Power is off so build the profile name by padding the bay number
+#                        bay = str(profile_number)
+                        bay = str(db['bayNumber'])
                         if str(db['profileUri']) == "None":
                             if len(bay)==1:
                                 i = '00'+bay
@@ -111,8 +113,10 @@ for count, item in enumerate(testloop):
                                 i = '0'+bay
                             elif len(bay)==3:
                                 i = bay
-    
-                        profile_name = config['profile_name'] + "_"+str(enc_count)+"_"+str(i)
+
+# Build the profile name based off profile_name in config.json+enclosure#+bay
+# Note: Enclosure number is based off the sorted list.  List is sorted on enclosure INTERNAL name
+                        profile_name = config['profile_name'] + "_"+str(count)+"_"+str(i)
                         profile_number = profile_number+1
                         server_template = profile_templates.get_by_name(profile_template_name)
                         uri = str(svr.data['uri'])
@@ -124,11 +128,12 @@ for count, item in enumerate(testloop):
                             enclosureGroupUri = enclosure_group.data["uri"]
                         )
 
+# Double check that profile does not already exist
                         profile = server_profiles.get_by_name(profile_name)
                         if profile:
                             print("Found profile with name '{}' and uri '{}'".format(profile.data['name'], profile.data['uri']))
                         else:
-                            profile = server_profiles.create(basic_profile_options)
+# if no profile then create profile
                             print("Create profile with name '{}'".format(profile_name))
-                            # server_profiles.create()
-                            profile_list.append(profile)
+                            profile = server_profiles.create(basic_profile_options)
+### END
