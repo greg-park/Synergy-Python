@@ -34,10 +34,10 @@ oneview_client = OneViewClient(config)
 print("Get list of all the servers profiles from appliance: ")
 server_profiles = oneview_client.server_profiles
 
-for profile in server_profiles.get_all():
+for profile in server_profiles.get_all(sort='name:ascending'):
     profile_compliance = server_profiles.get_by_name(profile['name'])
+    print("Check server compliance: {}".format(profile['name']))
     schema = profile_compliance.get_compliance_preview()
     if profile['templateCompliance'] == "NonCompliant":
         pprint("Set complaince for {}".format(profile['name']))
-        profile_compliance.patch(operation="replace",
-             path="/templateCompliance", value="Compliant")
+        profile_compliance.patch(operation="replace",path="/templateCompliance", value="Compliant")

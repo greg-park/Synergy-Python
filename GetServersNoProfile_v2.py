@@ -74,27 +74,35 @@ hardware_type = server_hardware_types.get_by_name(server_hardware_type_name)
 enclosure_group = enclosure_groups.get_by_name(enclosure_group_name)
 
 enc_count = 0
-count = 0
 dbcnt = 0
 profile_list = []
 
-for enclosure in enclosure_resource.get_all(sort='name:ascending'):
-    # pprint(enclosure)
-    enc_count = enc_count + 1
+encsize = len([ele for ele in enclosure_resource.get_all() if isinstance(ele, dict)])
+print (str(encsize))
+enclosures = enclosure_resource.get_all()
+testloop = ['0']
+
+# this loop can be changed to "testloop" to limit number of servers 
+for count, item in enumerate(testloop):
+#    print(enclosure[count])
+#for enclosure in enclosure_resource.get_all(sort='name:ascending'):
+#    # pprint(enclosure)
+#    enc_count = enc_count + 1
+    enclosure = enclosures[count]
     dbcnt = 0
     for db in enclosure['deviceBays']:
         dbcnt = dbcnt+1
+        print(db['deviceUri'])
         if "server-hardware" in (str(db['deviceUri'])):
-            count = count+1
             svr = servers.get_by_uri(db['deviceUri'])
-
+            print(svr.data['serverHardwareTypeUri'], hardware_type.data['uri'])
             if (svr.data['serverHardwareTypeUri']) == (hardware_type.data["uri"]):
+                print("Hardware URI")
                 if str(svr.data['serverProfileUri']) == "None":
                     pprint("Enclosure {} Device Bay {} Device {} Power {}".format(enc_count, dbcnt, db['devicePresence'],svr.data['powerState']))
                     if svr.data['powerState'] == "On":
-                        print("'{}' skipped due to power state '{}'".format(svr.data['name'],svr.data['powerState']))
+                        print("Skipping server '{}' power is '{}'".format(svr.data['name'],svr.data['powerState']))
                     else:
-                        print("Set server profile for '{}'".format(svr.data['name']))
                         bay = str(profile_number)
                         if str(db['profileUri']) == "None":
                             if len(bay)==1:
@@ -122,3 +130,5 @@ for enclosure in enclosure_resource.get_all(sort='name:ascending'):
                         else:
                             profile = server_profiles.create(basic_profile_options)
                             print("Create profile with name '{}'".format(profile_name))
+                            # server_profiles.create()
+                            profile_list.append(profile)
