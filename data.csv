@@ -1,3 +1,0 @@
-iloIP,User,Pass,isoDir,iso,ksTemplate,NewCfg,NewIP,NewHostName,ESXUser,ESXpwd
-10.10.108.52,hpadmin,atlpresales,http://10.10.108.20/ISO,CentOS-8.5.2111-x86_64-dvd1.iso,ksTemplate.cfg,KS_CUST.CFG,10.23.3.12,TestHost12.asgard.local,root,VMware1!
-10.10.108.54,hpadmin,atlpresales,http://10.10.108.20/ISO,CentOS-8.5.2111-x86_64-dvd1.iso,ksTemplate.cfg,KS_CUST.CFG,10.23.3.13,TestHost12.asgard.local,root,VMware1!

@@ -27,7 +27,27 @@ from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
 import json
-import time
+import time, os
+import platform, subprocess
+
+def my_ping(host_or_ip, packets=1, timeout=1000):
+    ''' Calls system "ping" command, returns True if ping succeeds.
+    Required parameter: host_or_ip (str, address of host to ping)
+    Optional parameters: packets (int, number of retries), timeout (int, ms to wait for response)
+    Does not show any output, either as popup window or in command line.
+    Python 3.5+, Windows and Linux compatible
+    '''
+    # The ping command is the same for Windows and Linux, except for the "number of packets" flag.
+    print("Check OV Host: {}".format(host_or_ip))
+    if platform.system().lower() == 'windows':
+        command = ['ping', '-n', str(packets), '-w', str(timeout), host_or_ip]
+        result = subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, creationflags=0x08000000)
+        return result.returncode == 0 and b'TTL=' in result.stdout
+    else:
+        command = ['ping', '-c', str(packets), '-w', str(timeout), host_or_ip]
+        # run parameters: discard output and error messages
+        result = subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return result.returncode == 0
 
 config = {
     "ip": "<oneview_ip>",
@@ -46,9 +66,15 @@ configuration = {
 }
 
 JSON_DIR = ".\jsonfiles\\"
+
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
-oneview_client = OneViewClient(config)
+rsp = my_ping(config['ip'])
+if rsp != 0:
+    oneview_client = OneViewClient(config)
+else:
+    print("{} OV Host Not Found ... exiting now".format(config['ip']))
+    exit(1)
 
 print("Get list of all the servers from appliance: ")
 # servers = oneview_client.server_hardware.get_all()
@@ -74,18 +100,15 @@ hardware_type = server_hardware_types.get_by_name(server_hardware_type_name)
 enclosure_group = enclosure_groups.get_by_name(enclosure_group_name)
 
 enc_count = 0
-count = 0
 dbcnt = 0
-profile_list = []
+created_profiles = []
 
 for enclosure in enclosure_resource.get_all(sort='name:ascending'):
-    # pprint(enclosure)
     enc_count = enc_count + 1
     dbcnt = 0
     for db in enclosure['deviceBays']:
         dbcnt = dbcnt+1
         if "server-hardware" in (str(db['deviceUri'])):
-            count = count+1
             svr = servers.get_by_uri(db['deviceUri'])
             if (svr.data['serverHardwareTypeUri']) == (hardware_type.data["uri"]):
                 if str(svr.data['serverProfileUri']) == "None":
@@ -93,31 +116,27 @@ for enclosure in enclosure_resource.get_all(sort='name:ascending'):
                     if svr.data['powerState'] == "On":
                         print("'{}' skipped due to power state '{}'".format(svr.data['name'],svr.data['powerState']))
                     else:
-                        print("Set server profile for '{}'".format(svr.data['name']))
                         bay = str(profile_number)
-                        if str(db['profileUri']) == "None":
-                            if len(bay)==1:
-                                i = '00'+bay
-                            elif len(bay)==2:
-                                i = '0'+bay
-                            elif len(bay)==3:
-                                i = bay
-    
-                        profile_name = config['profile_name'] + "_"+str(enc_count)+"_"+str(i)
+                        profile_name = config['profile_name']+str(profile_number)
+                        print("Set server profile for '{}' as {}".format(svr.data['name'],profile_name))
+                       
                         profile_number = profile_number+1
-                        server_template = profile_templates.get_by_name(profile_template_name)
+                        try:
+                            server_template = profile_templates.get_by_name(profile_template_name)
+                            profile = server_template.get_new_profile()
+                        except:
+                            print("Failed to create profile {} from template {}... exiting".format(profile_name, profile_template_name))
+                            exit(1)
+                       
                         uri = str(svr.data['uri'])
-                        basic_profile_options = dict(
-                            name=profile_name,
-                            serverHardwareUri=uri,
-                            serverProfileTemplateUri=server_template.data["uri"],
-                            serverHardwareTypeUri = hardware_type.data["uri"],
-                            enclosureGroupUri = enclosure_group.data["uri"]
-                        )
+                        profile['name'] = profile_name
+                        profile['serverHardwareUri'] = uri
 
-                        profile = server_profiles.get_by_name(profile_name)
-                        if profile:
-                            print("Found profile with name '{}' and uri '{}'".format(profile.data['name'], profile.data['uri']))
-                        else:
-                            profile = server_profiles.create(basic_profile_options)
-                            print("Create profile with name '{}'".format(profile_name))
+                        try:
+                            print("Applying profile {}".format(profile_name))
+                            created_profiles.append(server_profiles.create(profile, timeout=5))
+                        except:
+                            pass
+
+print("Some error checking")
+print (created_profiles)

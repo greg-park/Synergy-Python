@@ -44,8 +44,9 @@ for svr in servers:
         print ("Enclusore: {0:s} Bay: {1:s} ProfileSate: {2:s}".format(enclosure.data['name'],(str(bay)),svr['state']))
         for slot in svr['portMap']['deviceSlots']:
             macID = location + ',' + str(bay)
-            #of.write(macID)
+            of.write(macID)
             if slot['deviceName'] != "":
+                vp = virtualports
                 print("\tDevice: {0:s}".format(slot['deviceName']))
                 portnum = 0
                 for port in slot['physicalPorts']:
