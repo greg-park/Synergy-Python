@@ -1,10 +1,10 @@
 {
-  "enclosure_ip_range":"192.168.0.71",
+  "enclosure_ip_range":"192.168.0.101",
   "enclosure_names":"composer108.atlpss.hp.net",
   "server_hostnames":"sy480_gjp",
   "num_enclosures":1,
   "num_hosts":60,  
-  "ip": "192.168.0.171",
+  "ip": "192.168.0.101",
   "image_streamer_ip": "",
   "api_version": 3400,
   "ssl_certificate": "",

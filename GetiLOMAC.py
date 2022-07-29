@@ -1,20 +1,19 @@
 ##############################################################################
 # GetiLOMAC.py
-# - Script for listing the server Management Processor MAC id.
+# - Script for listing the ilo MAC ids
 #
 #   VERSION 1.0
 #   Date:
 #   Input: config.json
-#   Output: Creates a file in a local subdirectory ./jsonfiles, with
-#           list of servers and ilo MAC id.  If IP address is found that
-#           is listed as well
-##############################################################################
+#   Output: Write to stdout the Enclosure name, bay number and MAC id for iLO
+#           for the server in that slot.
 #
-# Mac to IPv6 info at https://networklessons.com/ipv6/ipv6-eui-64-explained
+############################################################################## 
 
-from hpeOneView.oneview_client import OneViewClient
-from hpeOneView.exceptions import HPEOneViewException
+from fileinput import filename
+from pprint import pprint
 from ConfigLoader import try_load_from_file
+from hpeOneView.oneview_client import OneViewClient
 import json
 
 # Functions used for program
@@ -66,43 +65,35 @@ def ipv62mac(ipv6):
 
     return ":".join(macParts)
 
-###
-# __main__
-# Grab info for Synergy Appliance.
-# NOTE: THIS USES CLEAR TEXT PASSWORDS!
 config = {
     "ip": "<oneview_ip>",
     "credentials": {
         "userName": "<username>",
-        "password": "<password>"
+        "password": "<password>",
     }
 }
 
+JSON_DIR = ".\jsonfiles\\"
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
 oneview_client = OneViewClient(config)
-server_hardwares = oneview_client.server_hardware
 
-# Open a file for the MAC ID information
-# really a CSV file, not .json
-installJson = "./jsonfiles/MACids.json"
-df = open(installJson, 'w')
-# Could add a write to the file for column lables, change file to .csv, etc.
+print("Get list of all the servers iLO MAC from OneView appliance: ")
+servers = oneview_client.server_hardware.get_all()
+enclosure_resource = oneview_client.enclosures
+# server_hardwares = oneview_client.server_hardware
 
-# Get list of all server hardware resources
-#
-# Build a list of any IPv4 addresses found (servers)
-# Create a text file with the FrameName, Server Slot and MAC ID
-print("Get list of all server iLO mac IDs from OneView appliance.")
-server_hardware_all = server_hardwares.get_all()
-
-for serv in server_hardware_all:
-    for k, v in serv['mpHostInfo'].items():
+for svr in servers:
+    frame = svr['locationUri'].split("/")
+    enclosure = enclosure_resource.get_by_uri(svr['locationUri'])
+    bay = svr['position']
+    for k, v in svr['mpHostInfo'].items():
         if k == "mpIpAddresses":
-            frame = serv['locationUri'].split("/")
             iLO_IP = v[len(v)-1]['address']
             mac = ipv62mac(v[0]['address'])
-            location = frame[len(frame)-1]
-            outstring = location+','+str(serv['position'])+','+mac+','+iLO_IP
-            df.write(outstring)
-            df.write('\n')
+# Just for fun make sure everything is a string.
+            svr_name = enclosure.data['name']
+            svr_bay = str(svr['position'])
+            svr_mac = str(mac)
+# Print out that list of data
+            print("{},{},{}".format(svr_name,svr_bay,svr_mac))
