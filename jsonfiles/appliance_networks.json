@@ -1,0 +1,40 @@
+[
+     {
+          "networkLabel": "Managed devices network",
+          "interfaceName": "Appliance",
+          "device": "bond0",
+          "macAddress": "94:40:c9:34:ec:f0",
+          "ipv4Type": "STATIC",
+          "ipv6Type": "UNCONFIGURE",
+          "overrideIpv4DhcpDnsServers": false,
+          "overrideIpv6DhcpDnsServers": false,
+          "confOneNode": false,
+          "activeNode": 1,
+          "hostname": "composer106.atlpss.hp.net",
+          "app1Ipv4Addr": "10.10.106.3",
+          "app2Ipv4Addr": "10.10.106.2",
+          "virtIpv4Addr": "10.10.106.1",
+          "ipv4Subnet": "255.255.0.0",
+          "ipv4Gateway": "10.10.1.4",
+          "app1Ipv6Addr": "",
+          "app2Ipv6Addr": null,
+          "virtIpv6Addr": "",
+          "ipv6Subnet": "",
+          "ipv6Gateway": "",
+          "app1Ipv4Alias": null,
+          "app2Ipv4Alias": null,
+          "app1Ipv6Alias": "",
+          "app2Ipv6Alias": null,
+          "domainName": "atlpss.hp.net",
+          "searchDomains": null,
+          "ipv4NameServers": [
+               "10.10.197.3",
+               "10.10.197.2"
+          ],
+          "ipv6NameServers": [],
+          "bondedTo": null,
+          "unconfigure": false,
+          "aliasDisabled": false,
+          "slaacEnabled": "yes"
+     }
+]

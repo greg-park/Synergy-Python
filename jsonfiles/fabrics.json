@@ -1,0 +1,28 @@
+{
+     "type": "fabricV3",
+     "uri": "/rest/fabrics/ab2ae682-e0bc-4e54-bdd1-d283f229bd5d",
+     "category": "fabrics",
+     "eTag": "d8fd1016-5e45-4897-b76e-4eec0e3a0319",
+     "created": "2020-09-01T18:16:05.776Z",
+     "modified": "2020-09-01T18:16:05.778Z",
+     "domainUri": "/rest/domains/ff28d234-55ef-4671-92e4-58fa978349d0",
+     "reservedVlanRange": {
+          "type": "vlan-pool",
+          "uri": "/rest/fabrics/ab2ae682-e0bc-4e54-bdd1-d283f229bd5d/reserved-vlan-range",
+          "category": "reserved-vlan-range",
+          "eTag": null,
+          "created": "2020-09-01T18:16:05.776Z",
+          "modified": "2020-09-01T18:16:05.778Z",
+          "start": 3967,
+          "length": 128
+     },
+     "fabricType": "Default",
+     "foreignState": "NotApplicable",
+     "foreignManager": null,
+     "refreshState": "NotApplicable",
+     "foreignHealthStatus": null,
+     "description": null,
+     "state": "NotApplicable",
+     "status": "OK",
+     "name": "DefaultFabric"
+}

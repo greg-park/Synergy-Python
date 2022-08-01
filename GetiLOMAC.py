@@ -14,7 +14,10 @@ from fileinput import filename
 from pprint import pprint
 from ConfigLoader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
-import json
+from tabulate import tabulate
+from collections import OrderedDict
+
+# Create linked list of the data found for mac ids
 
 # Functions used for program
 #
@@ -77,18 +80,20 @@ JSON_DIR = ".\jsonfiles\\"
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
 oneview_client = OneViewClient(config)
+totalMAC=0
 
 print("Get list of all the servers iLO MAC from OneView appliance: ")
 servers = oneview_client.server_hardware.get_all()
 enclosure_resource = oneview_client.enclosures
-# server_hardwares = oneview_client.server_hardware
+profiles = []
+svr_list = []
 
 for svr in servers:
-    frame = svr['locationUri'].split("/")
     enclosure = enclosure_resource.get_by_uri(svr['locationUri'])
     bay = svr['position']
     for k, v in svr['mpHostInfo'].items():
         if k == "mpIpAddresses":
+            totalMAC = totalMAC+1
             iLO_IP = v[len(v)-1]['address']
             mac = ipv62mac(v[0]['address'])
 # Just for fun make sure everything is a string.
@@ -96,4 +101,13 @@ for svr in servers:
             svr_bay = str(svr['position'])
             svr_mac = str(mac)
 # Print out that list of data
-            print("{},{},{}".format(svr_name,svr_bay,svr_mac))
+#            print("{},{},{}".format(svr_name,svr_bay,svr_mac))
+            pDict = {'name':svr_name, 'bay':svr_bay, 'mac':svr_mac}
+            profiles.append(pDict)
+print("Total iLO MAC ids: ",totalMAC)
+##
+profiles.sort(key=lambda x: x['name'],reverse=False)
+for p in profiles:
+    print("{}, {}, {}".format(p['name'],p['bay'],p['mac']))
+
+# print(tabulate(profiles, headers='keys', tablefmt='orgtbl'))

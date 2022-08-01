@@ -4,7 +4,7 @@
   "server_hostnames":"sy480_gjp",
   "num_enclosures":1,
   "num_hosts":60,  
-  "ip": "192.168.0.101",
+  "ip": "10.10.106.1",
   "image_streamer_ip": "",
   "api_version": 3400,
   "ssl_certificate": "",

@@ -1,0 +1,98 @@
+{
+     "type": "EnclosureGroupV8",
+     "uri": "/rest/enclosure-groups/d7c5dc55-c8df-495c-a223-972855938888",
+     "category": "enclosure-groups",
+     "name": "SYN106-EG",
+     "created": "2020-09-14T15:48:50.150Z",
+     "modified": "2022-07-26T13:47:49.692Z",
+     "eTag": "2022-07-26T13:47:49.692Z",
+     "status": "OK",
+     "state": "Normal",
+     "enclosureTypeUri": "/rest/enclosure-types/SY12000",
+     "stackingMode": "Enclosure",
+     "portMappingCount": 8,
+     "portMappings": [
+          {
+               "midplanePort": 1,
+               "interconnectBay": 1
+          },
+          {
+               "midplanePort": 2,
+               "interconnectBay": 2
+          },
+          {
+               "midplanePort": 3,
+               "interconnectBay": 3
+          },
+          {
+               "midplanePort": 4,
+               "interconnectBay": 4
+          },
+          {
+               "midplanePort": 5,
+               "interconnectBay": 5
+          },
+          {
+               "midplanePort": 6,
+               "interconnectBay": 6
+          },
+          {
+               "midplanePort": 7,
+               "interconnectBay": 7
+          },
+          {
+               "midplanePort": 8,
+               "interconnectBay": 8
+          }
+     ],
+     "interconnectBayMappingCount": 6,
+     "interconnectBayMappings": [
+          {
+               "interconnectBay": 1,
+               "logicalInterconnectGroupUri": "/rest/sas-logical-interconnect-groups/7a10ffbe-d06a-4f46-9d1e-62fd19eefdfe"
+          },
+          {
+               "interconnectBay": 2,
+               "logicalInterconnectGroupUri": "/rest/logical-interconnect-groups/aab58936-de6b-4ee8-bccf-774fded4f5de"
+          },
+          {
+               "interconnectBay": 3,
+               "logicalInterconnectGroupUri": "/rest/logical-interconnect-groups/dc89d886-2624-47c2-b929-2894fdd7f993"
+          },
+          {
+               "interconnectBay": 4,
+               "logicalInterconnectGroupUri": "/rest/sas-logical-interconnect-groups/7a10ffbe-d06a-4f46-9d1e-62fd19eefdfe"
+          },
+          {
+               "interconnectBay": 5,
+               "logicalInterconnectGroupUri": "/rest/logical-interconnect-groups/aab58936-de6b-4ee8-bccf-774fded4f5de"
+          },
+          {
+               "interconnectBay": 6,
+               "logicalInterconnectGroupUri": "/rest/logical-interconnect-groups/dc89d886-2624-47c2-b929-2894fdd7f993"
+          }
+     ],
+     "ipAddressingMode": "IpPool",
+     "ipRangeUris": [
+          "/rest/id-pools/ipv4/ranges/5be04e40-1c46-44e6-a582-407dbb5ee62c"
+     ],
+     "ipv6AddressingMode": "External",
+     "ipv6RangeUris": [],
+     "powerMode": "RedundantPowerFeed",
+     "description": null,
+     "osDeploymentSettings": {
+          "manageOSDeployment": false,
+          "deploymentModeSettings": {
+               "deploymentMode": "None",
+               "deploymentNetworkUri": null
+          }
+     },
+     "ambientTemperatureMode": "Standard",
+     "enclosureCount": 2,
+     "associatedLogicalInterconnectGroups": [
+          "/rest/logical-interconnect-groups/aab58936-de6b-4ee8-bccf-774fded4f5de",
+          "/rest/logical-interconnect-groups/dc89d886-2624-47c2-b929-2894fdd7f993",
+          "/rest/sas-logical-interconnect-groups/7a10ffbe-d06a-4f46-9d1e-62fd19eefdfe"
+     ],
+     "scopesUri": "/rest/scopes/resources/rest/enclosure-groups/d7c5dc55-c8df-495c-a223-972855938888"
+}
