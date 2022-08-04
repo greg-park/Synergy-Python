@@ -68,46 +68,99 @@ def ipv62mac(ipv6):
 
     return ":".join(macParts)
 
+##############################################################################
+# import_spy.py
+# - Script for importing SPT to OneView.
+#
+#   VERSION 1.0
+#   Date:
+#   Input: config.json, spts.csv
+#       config.json contains the list of variables used
+#       spts.csv is just a file with a single line for each SPT json file.
+#           The program does verify that file exists before attempting  
+#           to read the json data
+#   Output: None
+#
+##############################################################################
+import time
+import os.path
+import subprocess
+import platform
+
+# from fileinput import filename
+from config_loader import try_load_from_file
+from hpeOneView.oneview_client import OneViewClient
+from datetime import datetime
+
+def get_time_stamp():
+    timestamp = time.time()
+    date_time = datetime.fromtimestamp(timestamp)
+    str_date_time = date_time.strftime("%d-%m-%Y, %H:%M:%S")
+    return(str_date_time)
+
+def ping(host):
+    param = '-n' if platform.system().lower() == 'windows' else '-c'
+    command = ['ping', param, '1', host]
+    result = subprocess.Popen(command,stdout=subprocess.PIPE)
+    stdout, stderr = result.communicate()
+    return (result.returncode)
+
+print("Get list of all the servers iLO MAC from OneView appliance [{}]".format(get_time_stamp()))
+
 config = {
     "ip": "<oneview_ip>",
     "credentials": {
         "userName": "<username>",
         "password": "<password>",
-    }
+    },
+    "api_version": "<api_version>"
 }
 
-JSON_DIR = ".\jsonfiles\\"
+# Keep track of data in jsonfiles directory
+JSON_DIR = "./jsonfiles"
+# Make sure that directory exists
+print("Make sure {} exists for data.  Path check = {}".
+    format(JSON_DIR, os.path.isdir(JSON_DIR)))
+
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
-oneview_client = OneViewClient(config)
-totalMAC=0
 
-print("Get list of all the servers iLO MAC from OneView appliance: ")
+# Ensure the OneView/Composer target exists.  If not then exit
+print("Make sure OneView host {} exists ... ".
+    format(config["ip"]), end="")
+if ping (config["ip"]) == 0:
+    print("Success")
+else:
+    print ("Host {} not found, exiting program".format(config["ip"]))
+    exit(1)
+
+try:
+    oneview_client = OneViewClient(config)
+except Exception as e:
+    print('Connect Error:', e)
+    exit()
+
 servers = oneview_client.server_hardware.get_all()
 enclosure_resource = oneview_client.enclosures
 profiles = []
-svr_list = []
+totalMAC = 0
 
-for svr in servers:
-    enclosure = enclosure_resource.get_by_uri(svr['locationUri'])
-    bay = svr['position']
-    for k, v in svr['mpHostInfo'].items():
+for server in servers:
+    enclosure = enclosure_resource.get_by_uri(server['locationUri'])
+    bay = server['position']
+    for k, v in server['mpHostInfo'].items():
         if k == "mpIpAddresses":
             totalMAC = totalMAC+1
             iLO_IP = v[len(v)-1]['address']
             mac = ipv62mac(v[0]['address'])
-# Just for fun make sure everything is a string.
-            svr_name = enclosure.data['name']
-            svr_bay = str(svr['position'])
-            svr_mac = str(mac)
-# Print out that list of data
-#            print("{},{},{}".format(svr_name,svr_bay,svr_mac))
-            pDict = {'name':svr_name, 'bay':svr_bay, 'mac':svr_mac}
+# Save the data in a dict to sort
+            pDict = {'name':enclosure.data['name'], 'bay':server['position'], 'mac':mac}
             profiles.append(pDict)
 print("Total iLO MAC ids: ",totalMAC)
 ##
-profiles.sort(key=lambda x: x['name'],reverse=False)
+
+# Sort data on enclosure name and bay
+profiles.sort(key=lambda x: (x['name'],x['bay']))
+
 for p in profiles:
     print("{}, {}, {}".format(p['name'],p['bay'],p['mac']))
-
-# print(tabulate(profiles, headers='keys', tablefmt='orgtbl'))

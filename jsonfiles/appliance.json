@@ -4,7 +4,7 @@
      "memoryUnits": "GB",
      "memoryStatusError": null,
      "cpu": 2,
-     "cpuSpeed": 870,
+     "cpuSpeed": 1878,
      "cpuSpeedUnits": "MHz",
      "cpuStatusError": "Minimum CPU requirement of 8 @ 2 GHz not met.",
      "lan": 10000,
@@ -12,15 +12,15 @@
      "lanStatusError": null,
      "lanLinkStatusError": null,
      "activeUptime": {
-          "hours": 23,
-          "minutes": 41,
-          "days": 5
+          "hours": 2,
+          "minutes": 40,
+          "days": 8
      },
      "activeStartTime": "2022-07-26T13:35:46Z",
      "standbyUptime": {
-          "hours": 23,
-          "minutes": 17,
-          "days": 5
+          "hours": 2,
+          "minutes": 16,
+          "days": 8
      },
      "standbyStartTime": "2022-07-26T14:01:13Z"
 }

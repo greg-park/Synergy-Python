@@ -6,7 +6,7 @@
 
 from fileinput import filename
 from pprint import pprint
-from ConfigLoader import try_load_from_file
+from config_loader import try_load_from_file
 from hpeOneView.oneview_client import OneViewClient
 import json
 #import inspect

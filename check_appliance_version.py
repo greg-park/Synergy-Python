@@ -5,7 +5,7 @@
 
 from pprint import pprint
 from hpeOneView.oneview_client import OneViewClient
-from ConfigLoader import try_load_from_file
+from config_loader import try_load_from_file
 
 def version():
     config = {
@@ -27,5 +27,5 @@ def version():
 #    pprint(version['currentVersion'])
 #    pprint(version)
 
-# ver = version()
-# pprint(ver['currentVersion'])
+ver = version()
+pprint(ver['currentVersion'])

@@ -1577,7 +1577,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:06.687Z",
      "description": null,
-     "eTag": "1659359759659",
+     "eTag": "1659543322157",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 25,
@@ -1589,7 +1589,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-08-01T13:15:59.659Z",
+     "modified": "2022-08-03T16:15:22.157Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGD.atlpss.hp.net",
@@ -1878,7 +1878,7 @@
                "version": "2.9.0.",
                "serviceState": "Running",
                "installState": "Installed",
-               "lastOperationTime": "2022-08-01T13:26:33Z"
+               "lastOperationTime": "2022-08-03T16:25:54Z"
           },
           "firmwareInstallSchedule": {
                "dateTime": "",
@@ -2753,7 +2753,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:36.633Z",
      "description": null,
-     "eTag": "1659359720552",
+     "eTag": "1659543342114",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 25,
@@ -2765,7 +2765,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-08-01T13:15:20.552Z",
+     "modified": "2022-08-03T16:15:42.114Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGF.atlpss.hp.net",
@@ -3054,7 +3054,7 @@
                "version": "2.9.0.",
                "serviceState": "Running",
                "installState": "Installed",
-               "lastOperationTime": "2022-08-01T13:25:55Z"
+               "lastOperationTime": "2022-08-03T16:26:14Z"
           },
           "firmwareInstallSchedule": {
                "dateTime": "",
@@ -4697,7 +4697,7 @@
      "category": "server-hardware",
      "created": "2022-03-24T12:03:13.618Z",
      "description": null,
-     "eTag": "1659018692301",
+     "eTag": "1659542573798",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -4709,7 +4709,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:31:32.301Z",
+     "modified": "2022-08-03T16:02:53.798Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGN.atlpss.hp.net",
@@ -4728,7 +4728,7 @@
      "mpModel": "iLO5",
      "mpState": "OK",
      "oneTimeBoot": "Normal",
-     "operatingSystem": "VMware ESXi 6.7.0 Build-15160138 Update 3 Patch 89",
+     "operatingSystem": "Unknown",
      "partNumber": "871940-B21",
      "physicalServerHardwareUri": null,
      "platform": "ComputeModule",
@@ -5016,7 +5016,7 @@
           "AdvancedMemoryProtection": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/advancedMemoryProtection",
                "collectionState": "CollectedStale",
-               "modified": "2022-07-26T13:00:27.244Z",
+               "modified": "2022-08-03T16:02:53.789Z",
                "data": null,
                "etag": "28B8A57C",
                "count": 1,
@@ -5025,7 +5025,7 @@
           "Devices": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/devices",
                "collectionState": "CollectedStale",
-               "modified": "2022-07-26T13:04:15.349Z",
+               "modified": "2022-08-03T16:02:12.133Z",
                "data": null,
                "etag": "5B94DBB8",
                "count": 7,
@@ -5034,7 +5034,7 @@
           "Memory": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/memory",
                "collectionState": "CollectedStale",
-               "modified": "2022-07-26T13:00:27.244Z",
+               "modified": "2022-08-03T16:02:53.789Z",
                "data": null,
                "etag": "2D9BB885",
                "count": 24,
@@ -5043,7 +5043,7 @@
           "LocalStorage": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/localStorage",
                "collectionState": "CollectedStale",
-               "modified": "2022-07-26T13:00:27.245Z",
+               "modified": "2022-08-03T16:02:53.789Z",
                "data": null,
                "etag": "E6DD2156",
                "count": 2,
@@ -5052,7 +5052,7 @@
           "MemoryList": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/memoryList",
                "collectionState": "CollectedStale",
-               "modified": "2022-07-26T13:00:27.245Z",
+               "modified": "2022-08-03T16:02:53.789Z",
                "data": null,
                "etag": "71E740A0",
                "count": 2,
@@ -5061,7 +5061,7 @@
           "LocalStorageV2": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-33353048474E/localStorageV2",
                "collectionState": "CollectedStale",
-               "modified": "2022-06-23T14:22:33.328Z",
+               "modified": "2022-08-03T15:50:32.388Z",
                "data": null,
                "etag": "1",
                "count": 0,

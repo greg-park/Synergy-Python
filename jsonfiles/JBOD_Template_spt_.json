@@ -95,14 +95,6 @@
           ],
           "controllers": [
                {
-                    "deviceSlot": "Mezz 1",
-                    "mode": "Mixed",
-                    "initialize": true,
-                    "driveWriteCache": "Unmanaged",
-                    "predictiveSpareRebuild": "Unmanaged",
-                    "logicalDrives": null
-               },
-               {
                     "deviceSlot": "Embedded",
                     "mode": "Mixed",
                     "initialize": true,
@@ -120,6 +112,14 @@
                               "numSpareDrives": null
                          }
                     ]
+               },
+               {
+                    "deviceSlot": "Mezz 1",
+                    "mode": "Mixed",
+                    "initialize": true,
+                    "driveWriteCache": "Unmanaged",
+                    "predictiveSpareRebuild": "Unmanaged",
+                    "logicalDrives": null
                }
           ]
      },
