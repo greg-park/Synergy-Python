@@ -9,7 +9,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:26:25.072Z",
      "description": null,
-     "eTag": "1659018445691",
+     "eTag": "1660529772220",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -21,7 +21,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:27:25.691Z",
+     "modified": "2022-08-15T02:16:12.220Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGP.atlpss.hp.net",
@@ -381,7 +381,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484750&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -390,7 +390,7 @@
      "uuid": "39313738-3034-584D-5130-333530484750",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 8",
      "serverName": "localhost.localdomain",
@@ -401,7 +401,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:26:36.627Z",
      "description": null,
-     "eTag": "1659017878182",
+     "eTag": "1660528646481",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -413,7 +413,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:17:58.182Z",
+     "modified": "2022-08-15T01:57:26.481Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGB.atlpss.hp.net",
@@ -729,9 +729,9 @@
           "Devices": {
                "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484742/devices",
                "collectionState": "CollectedStale",
-               "modified": "2022-06-22T18:23:37.573Z",
+               "modified": "2022-08-03T18:43:57.303Z",
                "data": null,
-               "etag": "720B2CE3",
+               "etag": "27B93643",
                "count": 7,
                "name": "Devices"
           },
@@ -773,7 +773,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484742&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -782,7 +782,7 @@
      "uuid": "39313738-3034-584D-5130-333530484742",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 8",
      "serverName": "WIN-3RT2VNKRQPQ",
@@ -793,7 +793,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:26:49.559Z",
      "description": null,
-     "eTag": "1659017490357",
+     "eTag": "1660528082747",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -805,7 +805,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:11:30.357Z",
+     "modified": "2022-08-15T01:48:02.747Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGC.atlpss.hp.net",
@@ -1165,7 +1165,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484743&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -1174,7 +1174,7 @@
      "uuid": "39313738-3034-584D-5130-333530484743",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 7",
      "serverName": "localhost.atlpss.hp.net",
@@ -1185,7 +1185,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:28:57.225Z",
      "description": null,
-     "eTag": "1659016724642",
+     "eTag": "1660526015684",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -1197,7 +1197,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T13:58:44.642Z",
+     "modified": "2022-08-15T01:13:35.684Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGQ.atlpss.hp.net",
@@ -1557,7 +1557,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484751&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -1566,7 +1566,7 @@
      "uuid": "39313738-3034-584D-5130-333530484751",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 1",
      "serverName": "syn10630.atlpss.hp.net",
@@ -1577,7 +1577,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:06.687Z",
      "description": null,
-     "eTag": "1659543322157",
+     "eTag": "1660658076708",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 25,
@@ -1589,7 +1589,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-08-03T16:15:22.157Z",
+     "modified": "2022-08-16T13:54:36.708Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGD.atlpss.hp.net",
@@ -1878,7 +1878,7 @@
                "version": "2.9.0.",
                "serviceState": "Running",
                "installState": "Installed",
-               "lastOperationTime": "2022-08-03T16:25:54Z"
+               "lastOperationTime": "2022-08-16T14:05:24Z"
           },
           "firmwareInstallSchedule": {
                "dateTime": "",
@@ -1949,7 +1949,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484744&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -1958,7 +1958,7 @@
      "uuid": "39313738-3034-584D-5130-333530484744",
      "virtualSerialNumber": "VCGO5KS06C",
      "virtualUuid": "565cf38d-e2bc-4a00-801a-b00e46497afc"
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 7",
      "serverName": "disneyesx4.atlpss.hp.net",
@@ -1969,7 +1969,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:15.518Z",
      "description": null,
-     "eTag": "1659016914481",
+     "eTag": "1660527329537",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -1981,7 +1981,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:01:54.481Z",
+     "modified": "2022-08-15T01:35:29.537Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGH.atlpss.hp.net",
@@ -2341,7 +2341,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484748&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -2350,7 +2350,7 @@
      "uuid": "39313738-3034-584D-5130-333530484748",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 9",
      "serverName": "disneyesx5.atlpss.hp.net",
@@ -2361,7 +2361,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:25.106Z",
      "description": null,
-     "eTag": "1659018051477",
+     "eTag": "1660528836409",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -2373,7 +2373,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:20:51.477Z",
+     "modified": "2022-08-15T02:00:36.409Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGL.atlpss.hp.net",
@@ -2483,7 +2483,7 @@
                               "type": "Ethernet",
                               "virtualPorts": [
                                    {
-                                        "currentAllocatedVirtualFunctionCount": 120,
+                                        "currentAllocatedVirtualFunctionCount": 0,
                                         "mac": "B4:7A:F1:24:5C:9A",
                                         "portFunction": "a",
                                         "portNumber": 1,
@@ -2561,7 +2561,7 @@
                               "type": "Ethernet",
                               "virtualPorts": [
                                    {
-                                        "currentAllocatedVirtualFunctionCount": 120,
+                                        "currentAllocatedVirtualFunctionCount": 0,
                                         "mac": "B4:7A:F1:24:5C:9B",
                                         "portFunction": "a",
                                         "portNumber": 1,
@@ -2654,8 +2654,8 @@
      "serverProfileUri": null,
      "serverSettings": {
           "firmwareAndDriversInstallState": {
-               "installedStateTimestamp": "2022-03-28T18:14:29Z",
-               "installState": "Activated"
+               "installedStateTimestamp": "2022-08-03T18:47:07Z",
+               "installState": "Uninitialized"
           },
           "hpSmartUpdateToolStatus": {
                "mode": null,
@@ -2665,7 +2665,7 @@
                "lastOperationTime": null
           },
           "firmwareInstallSchedule": {
-               "dateTime": null,
+               "dateTime": "",
                "scheduleOptions": "StageImmediatelyAndRetryAtDeployTime"
           }
      },
@@ -2733,7 +2733,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-33353048474C&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -2742,7 +2742,7 @@
      "uuid": "39313738-3034-584D-5130-33353048474C",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 1",
      "serverName": "syn10631.atlpss.hp.net",
@@ -2753,7 +2753,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:29:36.633Z",
      "description": null,
-     "eTag": "1659543342114",
+     "eTag": "1660657956654",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 25,
@@ -2765,7 +2765,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-08-03T16:15:42.114Z",
+     "modified": "2022-08-16T13:52:36.654Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGF.atlpss.hp.net",
@@ -3054,7 +3054,7 @@
                "version": "2.9.0.",
                "serviceState": "Running",
                "installState": "Installed",
-               "lastOperationTime": "2022-08-03T16:26:14Z"
+               "lastOperationTime": "2022-08-16T14:03:26Z"
           },
           "firmwareInstallSchedule": {
                "dateTime": "",
@@ -3125,7 +3125,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484746&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -3134,7 +3134,7 @@
      "uuid": "39313738-3034-584D-5130-333530484746",
      "virtualSerialNumber": "VCGO5KS06D",
      "virtualUuid": "dd8b455d-6513-4b51-b3b6-8aad1eb82008"
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 10",
      "serverName": "",
@@ -3145,7 +3145,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:30:37.691Z",
      "description": null,
-     "eTag": "1659017301594",
+     "eTag": "1660527892429",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -3157,7 +3157,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:08:21.594Z",
+     "modified": "2022-08-15T01:44:52.429Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGM.atlpss.hp.net",
@@ -3501,7 +3501,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-33353048474D&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -3510,7 +3510,7 @@
      "uuid": "39313738-3034-584D-5130-33353048474D",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 3",
      "serverName": "syn10632.atlpss.hp.net",
@@ -3521,7 +3521,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:30:53.996Z",
      "description": null,
-     "eTag": "1659018232917",
+     "eTag": "1660529026762",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -3533,7 +3533,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:23:52.917Z",
+     "modified": "2022-08-15T02:03:46.762Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGK.atlpss.hp.net",
@@ -3893,7 +3893,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-33353048474B&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -3902,7 +3902,7 @@
      "uuid": "39313738-3034-584D-5130-33353048474B",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "2-Synergy106-B, bay 9",
      "serverName": "",
@@ -3913,7 +3913,7 @@
      "category": "server-hardware",
      "created": "2020-11-04T17:31:03.116Z",
      "description": null,
-     "eTag": "1659017080143",
+     "eTag": "1660527519760",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -3925,7 +3925,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:04:40.143Z",
+     "modified": "2022-08-15T01:38:39.760Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGJ.atlpss.hp.net",
@@ -4285,7 +4285,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-33353048474A&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -4294,7 +4294,7 @@
      "uuid": "39313738-3034-584D-5130-33353048474A",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 4",
      "serverName": "localhost.atlpss.hp.net",
@@ -4305,7 +4305,7 @@
      "category": "server-hardware",
      "created": "2022-03-16T13:20:43.288Z",
      "description": null,
-     "eTag": "1659017762279",
+     "eTag": "1660528273144",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -4317,7 +4317,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-07-28T14:16:02.279Z",
+     "modified": "2022-08-15T01:51:13.144Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGG.atlpss.hp.net",
@@ -4677,7 +4677,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484747&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",
@@ -4686,7 +4686,7 @@
      "uuid": "39313738-3034-584D-5130-333530484747",
      "virtualSerialNumber": null,
      "virtualUuid": null
-}{
+},{
      "type": "server-hardware-12",
      "name": "1-Synergy106-T, bay 2",
      "serverName": "localhost.atlpss.hp.net",
@@ -4697,7 +4697,7 @@
      "category": "server-hardware",
      "created": "2022-03-24T12:03:13.618Z",
      "description": null,
-     "eTag": "1659542573798",
+     "eTag": "1660529962825",
      "formFactor": "HalfHeight",
      "generation": "Gen10",
      "hostOsType": 0,
@@ -4709,7 +4709,7 @@
      "memoryMb": 393216,
      "migrationState": "NotMigrated",
      "model": "Synergy 480 Gen10",
-     "modified": "2022-08-03T16:02:53.798Z",
+     "modified": "2022-08-15T02:19:22.825Z",
      "mpFirmwareVersion": "2.60 Dec 06 2021",
      "mpHostInfo": {
           "mpHostName": "ILOMXQ0350HGN.atlpss.hp.net",
@@ -5069,7 +5069,7 @@
           }
      },
      "supportDataCollectionState": "Completed",
-     "supportDataCollectionType": "ActiveHealthSystem",
+     "supportDataCollectionType": "Basic",
      "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-33353048474E&category=server-hardware",
      "supportState": "Enabled",
      "supportTestEventState": "Completed",

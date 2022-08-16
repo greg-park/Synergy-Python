@@ -38,19 +38,28 @@ from hpeOneView.oneview_client import OneViewClient
 from datetime import datetime
 
 def get_time_stamp():
+    '''
+    function used to timestamp program
+    '''
     timestamp = time.time()
     date_time = datetime.fromtimestamp(timestamp)
     str_date_time = date_time.strftime('%d-%m-%Y, %H:%M:%S')
-    return(str_date_time)
+    return str_date_time
 
 def ping(host):
+    '''
+    Function to check server availablility
+    '''
     param = '-n' if platform.system().lower() == 'windows' else '-c'
     command = ['ping', param, '1', host]
     result = subprocess.Popen(command,stdout=subprocess.PIPE)
     stdout, stderr = result.communicate()
-    return (result.returncode)
+    return result.returncode
 
 def apply_server_profiles(profiles):
+    '''
+    function apply_server_profiles
+    '''
     for profile_to_create in profiles:
         server = oneview_client.server_hardware.get_by_uri(profile_to_create['uri'])
         print("Server: ", server.data['name'])
@@ -103,7 +112,7 @@ try:
     oneview_client = OneViewClient(config)
 except Exception as e:
     print('Connect Error:', e)
-    exit()
+    exit(1)
 
 # Keep track of data in jsonfiles directory
 json_dir = 'jsonfiles'

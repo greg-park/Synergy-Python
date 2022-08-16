@@ -3,12 +3,13 @@
 # Easily consumable by others
 # 
 ###
-
+import json
+import os
 from fileinput import filename
 from pprint import pprint
-from config_loader import try_load_from_file
+
 from hpeOneView.oneview_client import OneViewClient
-import json
+from config_loader import try_load_from_file
 #import inspect
 #from itertools import ifilter
 
@@ -32,7 +33,6 @@ oneview_client = OneViewClient(config)
 
 # Get configured network interface from appliance
 print("Get network interface details from appliance: ")
-# network_interface = oneview_client.appliance_network_interfaces
 network_interfaces = oneview_client.appliance_network_interfaces.get_all().data['applianceNetworks']
 outnames = network_interfaces[0]['hostname']
 rootname = outnames.split('.')[0]
@@ -48,7 +48,7 @@ save_file(appliances.data, outfile,"w")
 
 print("Get enclosure and enclosure groups details from appliance: ")
 enclosures = oneview_client.enclosures.get_all()
-outfile=JSON_DIR+"enclosures.json"
+outfile = JSON_DIR+"enclosures.json"
 open(outfile,"w")
 for enclosure in enclosures:
     save_file(enclosure, outfile,"a+")
@@ -77,17 +77,31 @@ for profile in all_profiles:
 
 print("Get list of all the servers from appliance: ")
 servers = oneview_client.server_hardware.get_all()
-outfile=JSON_DIR+"servers.json"
+OUTDIR="servers"
+server_dir = os.path.join(os.getcwd(),JSON_DIR, OUTDIR)
+
+try:
+    os.mkdir(server_dir)
+    print("Created servers json directory")
+except FileExistsError:
+    print("{} exists".format(server_dir))
+
+for svr in servers:
+    outdir = ""
+    fname = svr['name'].replace(',',"")
+    fname = fname.replace(' ',"_")
+    fname = fname + ".json"
+    outdir = os.path.join(os.getcwd(),server_dir, fname)
+    outfile = open(outdir, "w")
+    save_file(svr, outdir,"a+")
+
+print("Get list of all the servers from appliance: ")
+server_hw = oneview_client.server_hardware_types.get_all()
+outfile=JSON_DIR+"server_hw_type.json"
 open(outfile,"w")
 with open(file=outfile, mode="w") as output_file:
-    for svr in servers:
-        save_file(svr, outfile,"a+")
-        frame = svr['locationUri'].split("/")
-        location = frame[len(frame)-1]
-        bay = svr['position']
-        print("============")
-        #pprint(svr['portMap']['deviceSlots'][0]['physicalPorts''interconnectPort'])
-        print(location,',',bay,',',svr['portMap']['deviceSlots'][0]['physicalPorts'][0]['wwn'])
+    for hw in server_hw:
+        save_file(hw, outfile, "a+")
 
 print("Get all the defined Networks from appliance: ")
 ethernet_networks = oneview_client.ethernet_networks

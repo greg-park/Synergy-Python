@@ -1,0 +1,13 @@
+{
+  "IgnoreRequireLoginforiLORBSU":"True",
+  "IgnoreSecureBoot":"True",
+  "IgnorePasswordComplexity":"True",
+  "Ignoresnmpv1":"True",
+  "IgnoreDefaultSSLInUse":"True",
+  "IgnoreSecurityOverrideSwitch":"False",
+  "IgnoreIPMIDCMIOverLAN":"False",
+  "IgnoreMinimumPasswordLength":"False",
+  "IgnoreAuthenticationFailureLogging":"False",
+  "IgnoreLastFirmwareScanResult":"False",
+  "IgnoreRequireHostAuthentication":"False"
+}

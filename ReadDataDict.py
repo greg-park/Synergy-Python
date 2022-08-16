@@ -29,12 +29,11 @@ from ConfigLoader import try_load_from_file
 
 def GetServers(dc_info):
     servers = []
-    count = 0
     for server in dc_info['server_mpHostsAndRanges']:
         servers.append(server)
     return servers
 
-def ListServers(svrList = [], *args):
+def ListServers(svrList, *args):
     for s in svrList:
         print(s)
 
@@ -59,14 +58,14 @@ def DCInfo():
 ### __main__
 if __name__ == "__main__":
     dc_config = DCInfo()
-    for applianceIP in (dc_config['enclosure_ip_range']):
-        print("Appliance IP : ",applianceIP)
+#    for applianceIP in (dc_config['enclosure_ip_range']):
+#        print("Appliance IP : ",applianceIP)
 
-    for iloHost in (dc_config['server_mpHostsAndRanges']):
-        print(iloHost)
-    #svrs = []
-    #svrs = GetServers()
-#    print ("Now lets call ListServers")
-    #ListServers(svrs)
+#    for iloHost in (dc_config['server_mpHostsAndRanges']):
+#        print(iloHost)
+    svrs = []
+    svrs = GetServers(dc_config)
+    print ("Now lets call ListServers")
+    ListServers(svrs)
 
     

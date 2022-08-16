@@ -14,53 +14,14 @@ http://www.apache.org/licenses/LICENSE-2.0
  See the License for the specific language governing permissions and
  limitations under the License.
 
- This program is used to call the functions used to setup
- synergy frames and servers
-
- Just a place to test python examples
+get_iLO_settings.py
+- Script for getting ilo security settings
+  VERSION 1.0
+  Date:
+  Input: config.json
+  Output: Write to stdout the Enclosure name, bay number and MAC id for iLO
+          for the server in that slot.
 '''
-# output_dict = {
-#   '/controller-state.json':'controller-state.txt'
-#   '/rest/appliance/configuration/time-locale':'time-locale.txt',
-#   '/rest/appliance/device-read-community-string', 'device-read-community-string.txt',
-#   '/rest/appliance/eula/status':'eula-status.txt',
-#   '/rest/appliance/firmware/notification':'firmware-notification.txt',
-#   '/rest/appliance/firmware/pending':'firmware-pending.txt',
-#   '/rest/appliance/firmware/verificationKey':'firmware-verificationkey.txt',
-#   '/rest/appliance/ha-nodes':'ha-nodes.txt',
-#   '/rest/appliance/health-status':'health-status.txt',
-#   '/rest/appliance/network-interfaces':'network-interfaces.txt',
-#   '/rest/appliance/network-interfaces/mac-addresses', 'network-interfaces-mac.txt',
-#   '/rest/appliance/nodeinfo/status':'nodeinfo-status.txt',
-#   '/rest/appliance/nodeinfo/version':'nodeinfo-version.txt',
-#   '/rest/appliance/notifications/email-config','notification-email-config.txt',
-#   '/rest/appliance/notifications/test-email-config':'notification-test-email-config.txt',
-#   '/rest/appliance/progress':'progress.txt',
-#   '/rest/appliance/proxy-config': 'proxy-config.txt',
-#   '/rest/appliance/settings/serviceaccess':'settings-serviceaccess.txt',
-#   '/rest/appliance/snmpv3-trap-forwarding/destinations', 'snmpv3-destinations.txt',
-#   '/rest/appliance/snmpv3-trap-forwarding/users': 'snmpv3-users.txt',
-#   '/rest/appliance/ssh-access':'ssh-access.txt',
-#   '/rest/appliance/static-routes': 'static-routes.txt',
-#   '/rest/appliance/trap-destinations':'trap-destinations.txt',
-#   '/rest/backups': 'backups.txt',
-#   '/rest/backups/config':'backups-config.txt',
-#   '/rest/deployment-servers/image-streamer-appliances',  'image-streamer-appliances.txt',
-#   '/rest/domains':'domains.txt',
-#   '/rest/domains/schema':'domains-schema.txt',
-#   '/rest/firmware-drivers':'firmware-drivers.txt',
-#   '/rest/global-settings':'global-settings.txt',
-#   '/rest/hardware-compliance':'hardware-compliance.txt',
-#   '/rest/hw-appliances':'hw-appliances.txt',
-#   '/rest/licenses': 'licenses.txt',
-#   '/rest/remote-syslog':'remote-syslog.txt',
-#   '/rest/repositories':'repositories.txt',
-#   '/rest/restores':'restores.txt',
-#   '/rest/scopes': :'scopes.txt',
-#   '/rest/updates'::'updates.txt',
-#   '/rest/update-settings/schedule':'update-settings-schedule.txt',
-#   '/rest/version':'version.txt'
-# }
 
 import sys
 import getopt
@@ -117,7 +78,7 @@ def check_ilo_security():
     '''
 
     argv = sys.argv[1:]
-    server = []
+    servers = []
 
     headers = {
         'OData-Version':'4.0',
@@ -149,7 +110,7 @@ def check_ilo_security():
             assert False, "unhandled option"
 
 ###
-    print("Change iLO Security settings")
+    print("Change iLO Security settings [{}]".format(get_time_stamp()))
     config = {}
     config = try_load_from_file(config)
 
@@ -198,25 +159,22 @@ def check_ilo_security():
         url = "https://"+ilo_ip+rf_call
         r_security_dashboard = requests.get(url, headers=headers, verify=False)
         json_security_dashboard = json.loads(r_security_dashboard.content)
-    #    pprint(json_security_dashboard)
+        # pprint(json_security_dashboard)
 # 
-    #     for member in json_security_dashboard['Members']:
-    #         url = "https://"+ilo_ip+member['@odata.id']
-    #         r_member = requests.get(url, headers=headers, verify=False)
-    #         json_member = json.loads(r_member.content)
-    # #        pprint(json_member)
+        for member in json_security_dashboard['Members']:
+            url = "https://"+ilo_ip+member['@odata.id']
+            r_member = requests.get(url, headers=headers, verify=False)
+            json_member = json.loads(r_member.content)
+            pprint(json_member)
     #         json.dump(json_member, jsonFile)
     #         #if json_member['Name'] == "Minimum Password Length":
     #         #    pprint(json_member)
     #         #    r_member = requests.patch(url, json=post_data, headers=headers, verify=False)
     #         #    r_check= requests.get(url, headers=headers, verify=False)
 # 
-    # print("Checked {} ilos".format(ilo_count))
+    print("Checked {} ilos".format(ilo_count))
 
-#     data_file = os.path.join(os.getcwd(),JSON_DIR, SERVER_DIR, JSON_FILE)
-#     df = open(data_file, "r")
-#     jsonObject = json.load(df)
-#     pprint(jsonObject, indent=5)
+# End
 
 if __name__ == "__main__":
     check_ilo_security()

@@ -117,7 +117,7 @@ for enclosure in enclosures:
                 else:
                     print("Hardware {} does not match HW template {}".format(sht.data['name'], config['server_hardware_type']))
 
-with open(data_file, 'r+') as server_list:
+with open(data_file, "w") as server_list:
     json.dump(create_profiles, server_list)
 
 total_profiles = profile_number - int(config['profile_number'])

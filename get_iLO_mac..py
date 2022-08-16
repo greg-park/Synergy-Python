@@ -7,17 +7,21 @@
 #   Input: config.json
 #   Output: Write to stdout the Enclosure name, bay number and MAC id for iLO
 #           for the server in that slot.
+#           - add .csv file in json directory 
 #
 ############################################################################## 
-
-from fileinput import filename
-from pprint import pprint
-from ConfigLoader import try_load_from_file
+import time
+import os.path
+import subprocess
+import platform
+import csv
+from datetime import datetime
 from hpeOneView.oneview_client import OneViewClient
-from tabulate import tabulate
-from collections import OrderedDict
+from config_loader import try_load_from_file
 
-# Create linked list of the data found for mac ids
+# from fileinput import filename
+# from pprint import pprint
+# from tabulate import tabulate
 
 # Functions used for program
 #
@@ -42,11 +46,6 @@ def mac2ipv6(mac):
     ipv6 = "fe80::%s/64" % (":".join(ipv6Parts))
     return ipv6
 
-# ipv62mac - convert a IPv6 address to HW MAC Id
-# based on standards
-# input = ipv6 address as A:B:C:D:E:F:G:H format
-# return = MAC Id as AA:BB:CC:DD:EE:FF format
-
 def ipv62mac(ipv6):
     # remove subnet info if given
     subnetIndex = ipv6.find("/")
@@ -67,30 +66,6 @@ def ipv62mac(ipv6):
     del macParts[3]
 
     return ":".join(macParts)
-
-##############################################################################
-# import_spy.py
-# - Script for importing SPT to OneView.
-#
-#   VERSION 1.0
-#   Date:
-#   Input: config.json, spts.csv
-#       config.json contains the list of variables used
-#       spts.csv is just a file with a single line for each SPT json file.
-#           The program does verify that file exists before attempting  
-#           to read the json data
-#   Output: None
-#
-##############################################################################
-import time
-import os.path
-import subprocess
-import platform
-
-# from fileinput import filename
-from config_loader import try_load_from_file
-from hpeOneView.oneview_client import OneViewClient
-from datetime import datetime
 
 def get_time_stamp():
     timestamp = time.time()
@@ -115,12 +90,19 @@ config = {
     },
     "api_version": "<api_version>"
 }
+header = ['frame','bay','mac_id','ilo_ip']
 
 # Keep track of data in jsonfiles directory
 JSON_DIR = "./jsonfiles"
-# Make sure that directory exists
-print("Make sure {} exists for data.  Path check = {}".
-    format(JSON_DIR, os.path.isdir(JSON_DIR)))
+OUTFILE = "ilos.csv"
+data_file = os.path.join(os.getcwd(),JSON_DIR, OUTFILE)
+
+if os.path.isfile(data_file):
+    print('{} exists. File will be overwritten!'.format(data_file))
+    outfile = open(data_file, 'w', encoding='UTF8', newline='')
+else:
+    print('{} not found.  File required to save inf ... exiting'.format(data_file))
+    exit()
 
 # Try load config from a file (if there is a config file)
 config = try_load_from_file(config)
@@ -147,20 +129,24 @@ totalMAC = 0
 
 for server in servers:
     enclosure = enclosure_resource.get_by_uri(server['locationUri'])
-    bay = server['position']
     for k, v in server['mpHostInfo'].items():
         if k == "mpIpAddresses":
             totalMAC = totalMAC+1
             iLO_IP = v[len(v)-1]['address']
             mac = ipv62mac(v[0]['address'])
 # Save the data in a dict to sort
-            pDict = {'name':enclosure.data['name'], 'bay':server['position'], 'mac':mac}
+            pDict = {'name':enclosure.data['name'], 'bay':server['position'], 'mac':mac,'ilo_ip': iLO_IP}
             profiles.append(pDict)
 print("Total iLO MAC ids: ",totalMAC)
 ##
 
 # Sort data on enclosure name and bay
-profiles.sort(key=lambda x: (x['name'],x['bay']))
-
+profiles.sort(key=lambda x: (x['name'],x['bay'],x['mac']))
+writer = csv.writer(outfile)
+writer.writerow(header)
 for p in profiles:
-    print("{}, {}, {}".format(p['name'],p['bay'],p['mac']))
+    outstr = (p['name'],str(p['bay']),str(p['mac']),str(p['ilo_ip']))
+    writer.writerow(outstr)
+
+outfile.close()
+

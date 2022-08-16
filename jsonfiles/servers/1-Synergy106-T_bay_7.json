@@ -1,0 +1,393 @@
+{
+     "type": "server-hardware-12",
+     "name": "1-Synergy106-T, bay 7",
+     "serverName": "disneyesx4.atlpss.hp.net",
+     "state": "NoProfileApplied",
+     "stateReason": "NotApplicable",
+     "assetTag": "",
+     "capabilities": [],
+     "category": "server-hardware",
+     "created": "2020-11-04T17:29:15.518Z",
+     "description": null,
+     "eTag": "1660527329537",
+     "formFactor": "HalfHeight",
+     "generation": "Gen10",
+     "hostOsType": 0,
+     "imlMode": "Enabled",
+     "intelligentProvisioningVersion": "3.40.192",
+     "licensingIntent": "NotApplicable",
+     "locationUri": "/rest/enclosures/P06011MXQ029026R",
+     "maintenanceMode": false,
+     "memoryMb": 393216,
+     "migrationState": "NotMigrated",
+     "model": "Synergy 480 Gen10",
+     "modified": "2022-08-15T01:35:29.537Z",
+     "mpFirmwareVersion": "2.60 Dec 06 2021",
+     "mpHostInfo": {
+          "mpHostName": "ILOMXQ0350HGH.atlpss.hp.net",
+          "mpIpAddresses": [
+               {
+                    "address": "fe80:0:0:0:9640:c9ff:fe28:ca98",
+                    "type": "LinkLocal"
+               },
+               {
+                    "address": "10.10.106.57",
+                    "type": "Static"
+               }
+          ]
+     },
+     "mpLicenseType": "iLO Advanced",
+     "mpModel": "iLO5",
+     "mpState": "OK",
+     "oneTimeBoot": "Normal",
+     "operatingSystem": "Unknown",
+     "partNumber": "871940-B21",
+     "physicalServerHardwareUri": null,
+     "platform": "ComputeModule",
+     "portMap": {
+          "deviceSlots": [
+               {
+                    "deviceName": "HPE Smart Array P416ie-m SR G10",
+                    "deviceNumber": 1,
+                    "location": "Mezz",
+                    "physicalPorts": [
+                         {
+                              "interconnectPort": 7,
+                              "interconnectUri": "/rest/sas-interconnects/TWT952W00N",
+                              "mac": null,
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/sas-interconnects/TWT952W00N",
+                              "portNumber": 1,
+                              "type": "SAS",
+                              "virtualPorts": [],
+                              "wwn": "51:40:2E:C0:15:14:47:C0"
+                         },
+                         {
+                              "interconnectPort": 7,
+                              "interconnectUri": "/rest/sas-interconnects/TWT001W064",
+                              "mac": null,
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/sas-interconnects/TWT001W064",
+                              "portNumber": 2,
+                              "type": "SAS",
+                              "virtualPorts": [],
+                              "wwn": "51:40:2E:C0:15:14:47:C4"
+                         }
+                    ],
+                    "slotNumber": 1
+               },
+               {
+                    "deviceName": "Synergy 5830C 32Gb FC HBA",
+                    "deviceNumber": 2,
+                    "location": "Mezz",
+                    "physicalPorts": [
+                         {
+                              "interconnectPort": 7,
+                              "interconnectUri": "/rest/interconnects/57ca63eb-dbd0-4fd4-a738-a03e6b1ed073",
+                              "mac": null,
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/interconnects/57ca63eb-dbd0-4fd4-a738-a03e6b1ed073",
+                              "portNumber": 1,
+                              "type": "FibreChannel",
+                              "virtualPorts": [],
+                              "wwn": "51:40:2E:C0:12:3C:E7:40"
+                         },
+                         {
+                              "interconnectPort": 7,
+                              "interconnectUri": "/rest/interconnects/37a0193a-5d2c-404f-b270-f444762d3d9c",
+                              "mac": null,
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/interconnects/37a0193a-5d2c-404f-b270-f444762d3d9c",
+                              "portNumber": 2,
+                              "type": "FibreChannel",
+                              "virtualPorts": [],
+                              "wwn": "51:40:2E:C0:12:3C:E7:42"
+                         }
+                    ],
+                    "slotNumber": 2
+               },
+               {
+                    "deviceName": "Synergy 6820C 25/50Gb CNA",
+                    "deviceNumber": 3,
+                    "location": "Mezz",
+                    "physicalPorts": [
+                         {
+                              "interconnectPort": 19,
+                              "interconnectUri": "/rest/interconnects/5403e991-667b-4218-a8d0-dc63e0ae22e0",
+                              "mac": "B4:7A:F1:24:6C:5A",
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/interconnects/624fbb37-44bf-4412-b64a-71884f919202",
+                              "portNumber": 1,
+                              "type": "Ethernet",
+                              "virtualPorts": [
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 120,
+                                        "mac": "B4:7A:F1:24:6C:5A",
+                                        "portFunction": "a",
+                                        "portNumber": 1,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:5C",
+                                        "portFunction": "b",
+                                        "portNumber": 2,
+                                        "wwnn": "10:00:B4:7A:F1:24:6C:5C",
+                                        "wwpn": "20:00:B4:7A:F1:24:6C:5C"
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:5E",
+                                        "portFunction": "c",
+                                        "portNumber": 3,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:60",
+                                        "portFunction": "d",
+                                        "portNumber": 4,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:62",
+                                        "portFunction": "e",
+                                        "portNumber": 5,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:64",
+                                        "portFunction": "f",
+                                        "portNumber": 6,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:66",
+                                        "portFunction": "g",
+                                        "portNumber": 7,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:68",
+                                        "portFunction": "h",
+                                        "portNumber": 8,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   }
+                              ],
+                              "wwn": null
+                         },
+                         {
+                              "interconnectPort": 7,
+                              "interconnectUri": "/rest/interconnects/be0d5a10-1a84-45ba-bc23-e770029e7541",
+                              "mac": "B4:7A:F1:24:6C:5B",
+                              "nodeGuid": null,
+                              "permanentNodeGuid": null,
+                              "physicalInterconnectPort": 7,
+                              "physicalInterconnectUri": "/rest/interconnects/be0d5a10-1a84-45ba-bc23-e770029e7541",
+                              "portNumber": 2,
+                              "type": "Ethernet",
+                              "virtualPorts": [
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 120,
+                                        "mac": "B4:7A:F1:24:6C:5B",
+                                        "portFunction": "a",
+                                        "portNumber": 1,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:5D",
+                                        "portFunction": "b",
+                                        "portNumber": 2,
+                                        "wwnn": "10:00:B4:7A:F1:24:6C:5D",
+                                        "wwpn": "20:00:B4:7A:F1:24:6C:5D"
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:5F",
+                                        "portFunction": "c",
+                                        "portNumber": 3,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:61",
+                                        "portFunction": "d",
+                                        "portNumber": 4,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:63",
+                                        "portFunction": "e",
+                                        "portNumber": 5,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:65",
+                                        "portFunction": "f",
+                                        "portNumber": 6,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:67",
+                                        "portFunction": "g",
+                                        "portNumber": 7,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   },
+                                   {
+                                        "currentAllocatedVirtualFunctionCount": 0,
+                                        "mac": "B4:7A:F1:24:6C:69",
+                                        "portFunction": "h",
+                                        "portNumber": 8,
+                                        "wwnn": null,
+                                        "wwpn": null
+                                   }
+                              ],
+                              "wwn": null
+                         }
+                    ],
+                    "slotNumber": 3
+               }
+          ]
+     },
+     "position": 7,
+     "powerLock": false,
+     "powerState": "Off",
+     "processorCoreCount": 12,
+     "processorCount": 2,
+     "processorSpeedMhz": 2700,
+     "processorType": "Intel(R) Xeon(R) Gold 6226 CPU @ 2.70GHz",
+     "refreshState": "NotRefreshing",
+     "remoteSupportSettings": {
+          "remoteSupportCurrentState": "Registered",
+          "destination": "10.10.106.1"
+     },
+     "remoteSupportUri": "/rest/support/server-hardware/39313738-3034-584D-5130-333530484748",
+     "romVersion": "I42 v2.58 (11/24/2021)",
+     "scopesUri": "/rest/scopes/resources/rest/server-hardware/39313738-3034-584D-5130-333530484748",
+     "serialNumber": "MXQ0350HGH",
+     "serverFirmwareInventoryUri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/firmware",
+     "serverGroupUri": "/rest/enclosure-groups/d7c5dc55-c8df-495c-a223-972855938888",
+     "serverHardwareTypeUri": "/rest/server-hardware-types/7005F9F1-1657-45DB-A19A-F6779A5BB3AE",
+     "serverProfileUri": null,
+     "serverSettings": {
+          "firmwareAndDriversInstallState": {
+               "installedStateTimestamp": "2022-03-28T18:14:11Z",
+               "installState": "Activated"
+          },
+          "hpSmartUpdateToolStatus": {
+               "mode": null,
+               "version": null,
+               "serviceState": null,
+               "installState": "Unknown",
+               "lastOperationTime": null
+          },
+          "firmwareInstallSchedule": {
+               "dateTime": null,
+               "scheduleOptions": "StageImmediatelyAndRetryAtDeployTime"
+          }
+     },
+     "shortModel": "SY 480 Gen10",
+     "signature": {
+          "serverHwChecksum": 651063178,
+          "personalityChecksum": 0,
+          "updatedPersChecksum": 0
+     },
+     "status": "OK",
+     "subResources": {
+          "AdvancedMemoryProtection": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/advancedMemoryProtection",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-28T19:32:54.330Z",
+               "data": null,
+               "etag": "28B8A57C",
+               "count": 1,
+               "name": "AdvancedMemoryProtection"
+          },
+          "Devices": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/devices",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-31T19:36:03.395Z",
+               "data": null,
+               "etag": "35276F7",
+               "count": 6,
+               "name": "Devices"
+          },
+          "Memory": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/memory",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-28T19:32:54.330Z",
+               "data": null,
+               "etag": "DB69166D",
+               "count": 24,
+               "name": "Memory"
+          },
+          "LocalStorage": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/localStorage",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-28T18:03:04.415Z",
+               "data": null,
+               "etag": "88BE6CF4",
+               "count": 2,
+               "name": "LocalStorage"
+          },
+          "MemoryList": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/memoryList",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-28T19:32:54.330Z",
+               "data": null,
+               "etag": "71E740A0",
+               "count": 2,
+               "name": "MemoryList"
+          },
+          "LocalStorageV2": {
+               "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748/localStorageV2",
+               "collectionState": "CollectedStale",
+               "modified": "2022-03-28T17:46:45.140Z",
+               "data": null,
+               "etag": "1",
+               "count": 0,
+               "name": "LocalStorageV2"
+          }
+     },
+     "supportDataCollectionState": "Completed",
+     "supportDataCollectionType": "Basic",
+     "supportDataCollectionsUri": "/rest/support/data-collections?deviceID=39313738-3034-584D-5130-333530484748&category=server-hardware",
+     "supportState": "Enabled",
+     "supportTestEventState": "Completed",
+     "uidState": "Off",
+     "uri": "/rest/server-hardware/39313738-3034-584D-5130-333530484748",
+     "uuid": "39313738-3034-584D-5130-333530484748",
+     "virtualSerialNumber": null,
+     "virtualUuid": null
+}
