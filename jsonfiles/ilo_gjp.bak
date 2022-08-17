@@ -1,0 +1,140 @@
+{
+    "security":[
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "W/A3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/0/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "0",
+        "Ignore": "False",
+        "Name": "Security Override Switch",
+        "SecurityStatus": "Ok",
+        "State": "Off"
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "W/A3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/1/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "1",
+        "Ignore": "False",
+        "Name": "IPMI/DCMI Over LAN",
+        "SecurityStatus": "Ok",
+        "State": "Disabled"
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "W/A3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/2/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "2",
+        "Ignore": "False",
+        "Name": "Minimum Password Length",
+        "SecurityStatus": "Ok",
+        "State": "Ok"
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "W/A3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/3/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Description": "The Require Login for iLO RBSU setting is disabled. This configuration allows unauthenticated iLO access through the UEFI System Utilities.",
+        "Id": "3",
+        "Ignore": "True",
+        "IgnoredBy": "administrator",
+        "IgnoredTime": "2020-11-04T17:10:22Z",
+        "Name": "Require Login for iLO RBSU",
+        "SecurityStatus": "Risk",
+        "State": "Disabled" 
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/4/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "4",
+        "Ignore": "False",
+        "Name": "Authentication Failure Logging",
+        "SecurityStatus": "Ok",
+        "State": "Enabled"
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/5/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Description": "The UEFI Secure Boot setting is disabled. In this configuration, the UEFI system firmware does not validate the boot loader, Option ROM firmware, and other system software executables for trusted signatures. This configuration breaks the chain of trust established by iLO from power-on",
+        "Id": "5",
+        "Ignore": "True",
+        "IgnoredBy": "administrator",
+        "IgnoredTime": "2020-11-04T17:10:23Z",
+        "Name": "Secure Boot",
+        "SecurityStatus": "Risk",
+        "State": "Disabled"
+    },
+    {
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/6/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Description": "The Password Complexity setting is disabled. This configuration increases system vulnerability to attack.",
+        "Id": "6",
+        "Ignore": "True",
+        "IgnoredBy": "administrator",
+        "IgnoredTime": "2020-11-04T17:10:29Z",
+        "Name": "Password Complexity",
+        "SecurityStatus": "Risk",
+        "State": "Disabled"
+    },
+    {       
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/7/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "7",
+        "Ignore": "False",
+        "Name": "Last Firmware Scan Result",
+        "SecurityStatus": "Ok",
+        "State": "Ok"
+    },
+    {       
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/8/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Id": "8",
+        "Ignore": "False",
+        "Name": "Require Host Authentication",
+        "SecurityStatus": "Ok",
+        "State": "Disabled"
+    },
+    {       
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/9/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Description": "Management processor's default self-signed certificate is in use.",
+        "Id": "9",
+        "Ignore": "True",
+        "IgnoredBy": "administrator",
+        "IgnoredTime": "2020-11-04T17:10:29Z",
+        "Name": "Default SSL Certificate In Use",
+        "SecurityStatus": "Risk",
+        "State": "True"
+    },
+    {       
+        "@odata.context": "/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam",
+        "@odata.etag": "WA3A6BF43",
+        "@odata.id": "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/10/",
+        "@odata.type": "#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam",
+        "Description": "SNMPv1 is enabled. This configuration increases system vulnerability to attack.",
+        "Id": "10",
+        "Ignore": "True",
+        "IgnoredBy": "administrator",
+        "IgnoredTime": "2020-11-04T17:10:30Z",
+        "Name": "SNMPv1",
+        "SecurityStatus": "Risk",
+        "State": "Enabled"
+    }
+    ]
+}

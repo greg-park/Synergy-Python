@@ -40,8 +40,8 @@
       "Id": "3",
       "Description": "The Require Login for iLO RBSU setting is disabled. This configuration allows unauthenticated iLO access through the UEFI System Utilities.",
       "Ignore": true,
-      "IgnoredBy": "administrator",
-      "IgnoredTime": "2020-11-04T17:33:15Z",
+      "IgnoredBy": "Administrator",
+      "IgnoredTime": "2021-03-25T13:55:28Z",
       "Name": "Require Login for iLO RBSU",
       "SecurityStatus": "Risk",
       "State": "Disabled"
@@ -65,8 +65,8 @@
       "Id": "5",
       "Description": "The UEFI Secure Boot setting is disabled. In this configuration, the UEFI system firmware does not validate the boot loader, Option ROM firmware, and other system software executables for trusted signatures. This configuration breaks the chain of trust established by iLO from power-on",
       "Ignore": true,
-      "IgnoredBy": "administrator",
-      "IgnoredTime": "2020-11-04T17:33:15Z",
+      "IgnoredBy": "Administrator",
+      "IgnoredTime": "2021-03-25T13:55:29Z",
       "Name": "Secure Boot",
       "SecurityStatus": "Risk",
       "State": "Disabled"
@@ -79,8 +79,8 @@
       "Id": "6",
       "Description": "The Password Complexity setting is disabled. This configuration increases system vulnerability to attack.",
       "Ignore": true,
-      "IgnoredBy": "administrator",
-      "IgnoredTime": "2020-11-04T17:33:16Z",
+      "IgnoredBy": "Administrator",
+      "IgnoredTime": "2021-03-25T13:55:36Z",
       "Name": "Password Complexity",
       "SecurityStatus": "Risk",
       "State": "Disabled"
@@ -115,8 +115,8 @@
       "Id": "9",
       "Description": "Management processor's default self-signed certificate is in use.",
       "Ignore": true,
-      "IgnoredBy": "administrator",
-      "IgnoredTime": "2020-11-04T17:33:20Z",
+      "IgnoredBy": "Administrator",
+      "IgnoredTime": "2021-03-25T13:55:35Z",
       "Name": "Default SSL Certificate In Use",
       "SecurityStatus": "Risk",
       "State": "True"
@@ -130,7 +130,7 @@
       "Description": "SNMPv1 is enabled. This configuration increases system vulnerability to attack.",
       "Ignore": true,
       "IgnoredBy": "Administrator",
-      "IgnoredTime": "2021-03-25T13:56:59Z",
+      "IgnoredTime": "2021-03-25T13:55:39Z",
       "Name": "SNMPv1",
       "SecurityStatus": "Risk",
       "State": "Enabled"
