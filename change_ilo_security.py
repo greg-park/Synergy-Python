@@ -30,18 +30,28 @@ Options:
     - file with list of server hostnames AS DEFINED IN the ONEVIEW APPLIANCE
 
 Output sample:
--------------------------------------------------------------------------------------------------------
-  Searching for servers with a security status of the system at risk. Please wait...
 
-  2 x computes have been found with the 'security status is at risk' alert:
-
-  name           status Model             Serial Number
-  ----           ------ -----             -------------
-  Frame3, bay 11 OK     Synergy 480 Gen10 CZ221705V1
-  Frame3, bay 10 OK     Synergy 480 Gen10 CZ221705V7
-  [Frame3, bay 10 - iLO:192.168.0.10]: iLO security dashboard parameters changed successfully!
-  [Frame3, bay 11 - iLO:192.168.0.2]: iLO security dashboard parameters changed successfully!
--------------------------------------------------------------------------------------------------------
+        Checking security settings for 2-Synergy106-B, bay 2
+        No changes on 2-Synergy106-B, bay 2,10.10.106.52
+        Checking security settings for 2-Synergy106-B, bay 8
+        ***** Mismatch *****
+        2-Synergy106-B, bay 8 setting SNMPv1 set to FalseChanged to True
+        ilo Security settings changed.  New settings are:
+        {  '@odata.context': '/redfish/v1/$metadata#HpeiLOSecurityParam.HpeiLOSecurityParam',
+           '@odata.etag': 'W/"A3A6BF43"',
+           '@odata.id': '/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/10/',
+           '@odata.type': '#HpeiLOSecurityParam.v1_1_0.HpeiLOSecurityParam',
+           'Description': 'SNMPv1 is enabled. This configuration increases system '
+                          'vulnerability to attack.',
+           'Id': '10',
+           'Ignore': True,
+           'IgnoredBy': '_HPOneViewAdmin',
+           'IgnoredTime': '2022-08-18T14:43:37Z',
+           'Name': 'SNMPv1',
+           'SecurityStatus': 'Risk',
+           'State': 'Enabled'}
+        Fixed 1 settings on 2-Synergy106-B, bay 8,10.10.106.58
+        updated security for 1 servers
 
 '''
 import sys
