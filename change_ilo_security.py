@@ -1,3 +1,5 @@
+# pylint: disable=line-too-long
+
 ''' -*- coding: utf-8 -*-
 
  (C) Copyright [2021] Hewlett Packard Enterprise Development LP
@@ -24,7 +26,7 @@ default value
 
 Requirements
    - HPE OneView Python Library
-   - HPE OneView administrator account 
+   - HPE OneView administrator account
 
 Options:
     - file with list of server hostnames AS DEFINED IN the ONEVIEW APPLIANCE
@@ -54,6 +56,7 @@ Output sample:
         updated security for 1 servers
 
 '''
+
 import sys
 import getopt
 import json
@@ -69,17 +72,13 @@ from pprint import pprint
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 
-# Suppress only the single warning from urllib3 needed.
-requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-
 from hpeOneView.oneview_client import OneViewClient
 # from tabulate import tabulate
 from config_loader import try_load_from_file
 
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 JSON_DIR = 'jsonfiles'
 SERVER_DIR = 'servers'
-# JSON_FILE = '1-Synergy106-T_bay_1.json'
-# .\jsonfiles\servers\1-Synergy106-T_bay_1.json
 
 def usage():
     '''
@@ -108,11 +107,12 @@ def ping(host):
     result = subprocess.Popen(command,stdout=subprocess.PIPE)
     stdout, stderr = result.communicate()
     return (result.returncode)
+
 def check_security_settings(server_name, objects):
     '''
     Check the security settings for "server_name" vs "objects" and fix 
     any settings that do not match
-    '''    
+    '''
     mismatch = 0
     headers = {
         'OData-Version':'4.0',
@@ -125,7 +125,7 @@ def check_security_settings(server_name, objects):
 
     config= []
     config = try_load_from_file(config)
- 
+
     # Ensure the OneView/Composer target exists.  If not then exit
     print(f"Checking security settings for {server_name}")
     hostname = config["ip"]
@@ -159,7 +159,7 @@ def check_security_settings(server_name, objects):
         url = "https://"+ilo_ip+member['@odata.id']
         r_member = requests.get(url, headers=headers, verify=False)
         json_member = json.loads(r_member.content)
-        
+
         for security_object in objects:
             if security_object['@odata.id'] == member['@odata.id']:
                 # print("Test value: ", security_object['@odata.id'])
@@ -208,7 +208,7 @@ def get_servers(server_file):
         for readline in fd:
             server_name = readline.rstrip('\n')
             server_list.append(server_name)
-    
+
     #for server in servers:
     #    print("Server name: ", server['name'])
     #    server_list.append(server['name'])
