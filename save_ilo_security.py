@@ -1,15 +1,57 @@
-##############################################################################
-# change_iLO_settings.py
-# - Script for getting ilo security settings
-#
-#   VERSION 1.0
-#   Date:
-#   Input: ilo_security.json, config.json
-#   Output: Write to stdout the Enclosure name, bay number and MAC id for iLO
-#           for the server in that slot.
-#
-############################################################################## 
+# pylint: disable=line-too-long
 
+''' -*- coding: utf-8 -*-
+
+ (C) Copyright [2021] Hewlett Packard Enterprise Development LP
+
+ Licensed under the Apache License, Version 2.0 (the 'License');
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an 'AS IS' BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ This program is used to call the functions used to setup
+ synergy frames and servers
+
+-------------------------------------------------------------------------------------------------------
+This Python script saves the iLO security settings for all serves in a OneView system
+or as given in the -l <file server list file> argument
+
+Requirements
+   - HPE OneView Python Library
+   - HPE OneView administrator account
+
+Options:
+    - file with list of server hostnames AS DEFINED IN the ONEVIEW APPLIANCE
+
+Output sample:
+
+        python.exe save_ilo_security.py -l ilos.txt 
+        Change iLO Security settings: [18-08-2022, 11:18:17]
+        Make sure OneView host 10.10.106.1 exists ... Success
+        D:\Scripts\Python\OneView\python-synergy\Synergy-Python\jsonfiles\ilo_security.json exists. File will be overwritten!
+        Saving security settings for iLO Hostname ILOMXQ0350HGP.atlpss.hp.net Addresses 10.10.106.52: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGB.atlpss.hp.net Addresses 10.10.106.58: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGC.atlpss.hp.net Addresses 10.10.106.59: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGQ.atlpss.hp.net Addresses 10.10.106.56: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGD.atlpss.hp.net Addresses 10.10.106.50: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGH.atlpss.hp.net Addresses 10.10.106.57: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGL.atlpss.hp.net Addresses 10.10.106.61: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGF.atlpss.hp.net Addresses 10.10.106.51: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGM.atlpss.hp.net Addresses 10.10.106.60: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGK.atlpss.hp.net Addresses 10.10.106.72:
+        Saving security settings for iLO Hostname ILOMXQ0350HGJ.atlpss.hp.net Addresses 10.10.106.75: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGG.atlpss.hp.net Addresses 10.10.106.55: 
+        Saving security settings for iLO Hostname ILOMXQ0350HGN.atlpss.hp.net Addresses 10.10.106.53: 
+        Checked 13 ilos
+
+'''
 import json
 import time
 import os.path
