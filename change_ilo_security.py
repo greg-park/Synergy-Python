@@ -17,12 +17,37 @@ http://www.apache.org/licenses/LICENSE-2.0
  This program is used to call the functions used to setup
  synergy frames and servers
 
- Just a place to test python examples
+-------------------------------------------------------------------------------------------------------
+This Python script compares the iLO security settings against a set of default settings.  If the 
+host iLO does not match the default then that particular security setting is changed to match the
+default value
+
+Requirements
+   - HPE OneView Python Library
+   - HPE OneView administrator account 
+
+Options:
+    - file with list of server hostnames AS DEFINED IN the ONEVIEW APPLIANCE
+
+Output sample:
+-------------------------------------------------------------------------------------------------------
+  Searching for servers with a security status of the system at risk. Please wait...
+
+  2 x computes have been found with the 'security status is at risk' alert:
+
+  name           status Model             Serial Number
+  ----           ------ -----             -------------
+  Frame3, bay 11 OK     Synergy 480 Gen10 CZ221705V1
+  Frame3, bay 10 OK     Synergy 480 Gen10 CZ221705V7
+  [Frame3, bay 10 - iLO:192.168.0.10]: iLO security dashboard parameters changed successfully!
+  [Frame3, bay 11 - iLO:192.168.0.2]: iLO security dashboard parameters changed successfully!
+-------------------------------------------------------------------------------------------------------
+
 '''
 import sys
 import getopt
 import json
-import csv
+# import csv
 import time
 import os.path
 import subprocess
@@ -43,15 +68,21 @@ from config_loader import try_load_from_file
 
 JSON_DIR = 'jsonfiles'
 SERVER_DIR = 'servers'
-JSON_FILE = '1-Synergy106-T_bay_1.json'
+# JSON_FILE = '1-Synergy106-T_bay_1.json'
 # .\jsonfiles\servers\1-Synergy106-T_bay_1.json
 
 def usage():
-    print("useage: get_ilo_security.py -h -l <file list> -v")
+    '''
+    usage function
+    '''
+    print("useage: change_ilo_security.py -h -l <file list> -v")
+    print(" -h: help")
+    print(" -l: <file containing servernames>")
+    print(" -v: verbose")
 
 def get_time_stamp():
     '''
-    get_time_stamp function
+    get_time_stamp function.  Used to mark time during execution
     '''
     timestamp = time.time()
     date_time = datetime.fromtimestamp(timestamp)
@@ -69,9 +100,10 @@ def ping(host):
     return (result.returncode)
 def check_security_settings(server_name, objects):
     '''
-    docstring
+    Check the security settings for "server_name" vs "objects" and fix 
+    any settings that do not match
     '''    
-
+    mismatch = 0
     headers = {
         'OData-Version':'4.0',
         'X-Auth-Token':''
@@ -80,11 +112,12 @@ def check_security_settings(server_name, objects):
     post_data = {
         'Ignore':False
     }
+
     config= []
     config = try_load_from_file(config)
  
     # Ensure the OneView/Composer target exists.  If not then exit
-    # print("Make sure OneView host exists ... ", end=" ")
+    print(f"Checking security settings for {server_name}")
     hostname = config["ip"]
     if ping (config["ip"]) != 0:
         print (f"Host {hostname} not found, exiting program")
@@ -101,11 +134,11 @@ def check_security_settings(server_name, objects):
     server = oneview_client.server_hardware.get_by_name(server_name)
     addresses = server.data['mpHostInfo']['mpIpAddresses']
     ilo_ip = addresses[len(addresses)-1]['address']
-#        
+#
     server_hw = oneview_client.server_hardware.get_by_name(server.data['name'])
     remote_console = server_hw.get_remote_console_url()
     session_id = (remote_console['remoteConsoleUrl']).split("=")[2]
-##
+#
     headers['X-Auth-Token'] = session_id
     rf_call = "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/"
     url = "https://"+ilo_ip+rf_call
@@ -119,14 +152,22 @@ def check_security_settings(server_name, objects):
         
         for security_object in objects:
             if security_object['@odata.id'] == member['@odata.id']:
-                print("Test value: ", security_object['@odata.id'])
+                # print("Test value: ", security_object['@odata.id'])
                 if security_object['Ignore'] != json_member['Ignore']:
-                    print("==================== Mismatch ====================")
+                    mismatch = mismatch+1
+                    print("***** Mismatch *****")
+                    print(f"{server.data['name']} setting {json_member['Name']} set to {json_member['Ignore']}", end="")
+                    post_data['Ignore'] = security_object['Ignore']
                     r_member = requests.patch(url, json=post_data, headers=headers, verify=False)
                     r_check= requests.get(url, headers=headers, verify=False)
-                    print("ilo Security settings changed ...")
-                    pprint(json.loads(r_check.content))
-    return()
+                    print(f"Changed to {security_object['Ignore']}")
+                    print("ilo Security settings changed.  New settings are:")
+                    pprint(json.loads(r_check.content), indent=3)
+    if mismatch > 0:
+        print(f"Fixed {mismatch} settings on {server_name},{ilo_ip}")
+    else:
+        print(f"No changes on {server_name},{ilo_ip}")
+    return(mismatch)
 
 def get_servers(server_file):
     '''
@@ -194,6 +235,12 @@ if __name__ == "__main__":
     # read_server_json(security_objects)
     server_list = get_servers(server_file)
 
+    changes = 0
+    total_changes = 0
     # check_security_settings("1-Synergy106-T, bay 2", security_objects)
     for server in server_list:
-        check_security_settings(server, security_objects)
+        changes = check_security_settings(server, security_objects)
+        if changes > 0:
+            total_changes = total_changes + 1
+
+    print(f"updated security for {total_changes} servers")
