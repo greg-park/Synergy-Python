@@ -153,7 +153,7 @@ for server in oneview_client.server_hardware.get_all():
     server_hw = oneview_client.server_hardware.get_by_name(server['name'])
     addresses = server['mpHostInfo']['mpIpAddresses']
     ilo_ip = addresses[len(addresses)-1]['address']
-    print("Security settings for iLO Hostname {} Addresses {}: ".format(server['mpHostInfo']['mpHostName'], ilo_ip))
+    print("Saving security settings for iLO Hostname {} Addresses {}: ".format(server['mpHostInfo']['mpHostName'], ilo_ip))
 
     remote_console = server_hw.get_remote_console_url()
     session_id = (remote_console['remoteConsoleUrl']).split("=")[2]
@@ -162,13 +162,13 @@ for server in oneview_client.server_hardware.get_all():
     url = "https://"+ilo_ip+rf_call
     r_security_dashboard = requests.get(url, headers=headers, verify=False)
     json_security_dashboard = json.loads(r_security_dashboard.content)
-    pprint(json_security_dashboard)
+#    pprint(json_security_dashboard)
 
     for member in json_security_dashboard['Members']:
         url = "https://"+ilo_ip+member['@odata.id']
         r_member = requests.get(url, headers=headers, verify=False)
         json_member = json.loads(r_member.content)
-        pprint(json_member)
+#        pprint(json_member)
         json.dump(json_member, jsonFile)
         #if json_member['Name'] == "Minimum Password Length":
         #    pprint(json_member)
