@@ -61,15 +61,64 @@ http://www.apache.org/licenses/LICENSE-2.0
 #   '/rest/update-settings/schedule':'update-settings-schedule.txt',
 #   '/rest/version':'version.txt'
 # }
+'''
+
+        "/controller-state.json":'controller-state',
+        "/rest/appliance/configuration/time-locale":'time-locale',
+        "/rest/appliance/device-read-community-string":'device-read-community-string',
+        "/rest/appliance/eula/status":'eula-status',
+        "/rest/appliance/firmware/notification":'firmware-notification',
+        "/rest/appliance/firmware/pending":'firmware-pending',
+        "/rest/appliance/firmware/verificationKey":'firmware-verificationkey',
+        "/rest/appliance/ha-nodes":'ha-nodes',
+        "/rest/appliance/health-status":'health-status',
+        "/rest/appliance/network-interfaces":'network-interfaces',
+        "/rest/appliance/network-interfaces/mac-addresses":'network-interfaces-mac',
+        "/rest/appliance/nodeinfo/status":'nodeinfo-status',
+        "/rest/appliance/nodeinfo/version":'nodeinfo-version',
+        "/rest/appliance/notifications/email-config":'notification-email-config',
+        "/rest/appliance/notifications/test-email-config":'notification-test-email-config',
+        "/rest/appliance/progress":'progress',
+        "/rest/appliance/proxy-config":'proxy-config',
+        "/rest/appliance/settings/serviceaccess":'settings-serviceaccess',
+        "/rest/appliance/snmpv3-trap-forwarding/destinations":'snmpv3-destinations',
+        "/rest/appliance/snmpv3-trap-forwarding/users":'snmpv3-users',
+        "/rest/appliance/ssh-access": 'ssh-access',
+        "/rest/appliance/static-routes":'static-routes',
+        "/rest/appliance/trap-destinations":'trap-destinations'
+    }
+
+
+appliance_settings :{
+        "/rest/backups":'backups',
+        "/rest/backups/config":'backups-config',
+        "/rest/deployment-servers/image-streamer-appliances":'image-streamer-appliances',
+        "/rest/domains":'domains',
+        "/rest/domains/schema":'domains-schema',
+        "/rest/firmware-drivers":'firmware-drivers',
+        "/rest/global-settings":'global-settings',
+        "/rest/hardware-compliance":'hardware-compliance',
+        "/rest/hw-appliances":'hw-appliances',
+#         "/rest/index/resources?query=`"NOT scopeUris:NULL`"", 'scopes-resources',
+        "/rest/licenses":'licenses',
+        "/rest/remote-syslog":'remote-syslog',
+        "/rest/repositories":'repositories',
+        "/rest/restores":'restores',
+        "/rest/scopes":'scopes',
+        "/rest/updates":'updates',
+        "/rest/update-settings/schedule":'update-settings-schedule',
+        "/rest/version":'version'
+    }
+
+'''
 
 import sys
-import getopt
 import json
-import csv
 import time
-import os.path
 import subprocess
 import platform
+import argparse
+
 from datetime import datetime
 # from fileinput import filename
 from pprint import pprint
@@ -87,7 +136,132 @@ from config_loader import try_load_from_file
 JSON_DIR = 'jsonfiles'
 SERVER_DIR = 'servers'
 JSON_FILE = '1-Synergy106-T_bay_1.json'
-# .\jsonfiles\servers\1-Synergy106-T_bay_1.json
+
+class gjp_class():
+    SessionDict = {
+        "login":"rest/login-sessions"
+    }
+    ApplianceDict = {
+        'controller-state':"/rest/appliance/controller-state.json",
+        'time-locale':"/rest/appliance/configuration/time-locale",
+        'device-read-community-string':"/rest/appliance/device-re,ad-community-string",
+        'eula-status':"/rest/appliance/eula/status",
+        'firmware-notification':"/rest/appliance/firmware/notification",
+        'firmware-pending':"/rest/appliance/firmware/pending",
+        'firmware-verificationkey':"/rest/appliance/firmware/verificationKey",
+        'ha-nodes':"/rest/appliance/ha-nodes",
+        'health-status':"/rest/appliance/health-status",
+        'network-interfaces':"/rest/appliance/network-interfaces",
+        'network-interfaces-mac':"/rest/appliance/network-interfa,ces/mac-addresses",
+        'nodeinfo-status':"/rest/appliance/nodeinfo/status",
+        'nodeinfo-version':"/rest/appliance/nodeinfo/version",
+        'notification-email-config':"/rest/appliance/notifications/email-config",
+        'notification-test-email-config':"/rest/appliance/notifications/test-email-config",
+        'progress':"/rest/appliance/progress",
+        'proxy-config':"/rest/appliance/proxy-config",
+        'settings-serviceaccess':"/rest/appliance/settings/serviceaccess",
+        'snmpv3-destinations':"/rest/appliance/snmpv3-trap-forwarding/destinations",
+        'snmpv3-users':"/rest/appliance/snmpv3-trap-forwarding/users",
+         'ssh-access':"/rest/appliance/ssh-access",
+        'static-routes':"/rest/appliance/static-routes",
+        'trap-destinations':"/rest/appliance/trap-destinations",
+        'backups':"/rest/backups",
+        'backups-config':"/rest/backups/config",
+        'image-streamer-appliances':"/rest/deployment-servers/image-streamer-appliances",
+        'domains':"/rest/domains",
+        'domains-schema':"/rest/domains/schema",
+        'firmware-drivers':"/rest/firmware-drivers",
+        'global-settings':"/rest/global-settings",
+        'hardware-compliance':"/rest/hardware-compliance",
+        'hw-appliances':"/rest/hw-appliances",
+#        NULL`"", 'scopes-resources',	# : "/rest/index/resource,s?query=`"NOT scopeUris
+        'licenses':"/rest/licenses",
+        'remote-syslog':"/rest/remote-syslog",
+        'repositories':"/rest/repositories",
+        'restores':"/rest/restores",
+        'scopes':"/rest/scopes",
+        'updates':"/rest/updates",
+        'update-settings-schedule':"/rest/update-settings/schedule",
+        'version':"/rest/version"
+    }
+
+    headers = {
+        'Content-Type': 'application/json',
+        'X-Api-Version': '4200'
+    }
+    post_headers = {
+        'Content-Type': 'application/json',
+        'X-Api-Version': '4200'
+    }
+
+    body = { 
+        'authLoginDomain': "local", 
+        'userName': "Administrator", 
+        'password': "HP1nvent"
+    }
+    app = "10.10.10.1"
+    call = "put"
+
+    def __init__(self, s):
+        self.string = s
+    def __call__(self):
+        print(self.string)
+
+    def class_postCall(self, post):
+        resp = None
+        body = self.body
+        uri = "https://{}/{}/".format(self.app, self.SessionDict[post])
+        print("POST: ", uri)
+
+        try:
+            resp = requests.post(uri, headers=self.post_headers, data=json.dumps(body), verify=False)
+            if (resp.status_code != 200):
+                print("OV Connection ..... Failed: ", resp.status_code)
+        except Exception as e:
+            print(f"Unable to reach OneView appliance. Reason  - {e}.")
+            print("OV Connection ..... Failed: ",resp.status_code)
+        return resp.json()
+# End of class
+
+def getCall(local_s, call, getVersion, getSession):
+    resp = None
+    uri = "https://{}{}".format(local_s.app, local_s.ApplianceDict[call])
+    print("GET: ", uri)
+    if getSession == "" :
+        get_headers = local_s.headers
+    else:
+        get_headers = {
+            'Content-Type': 'application/json',
+            'X-Api-Version': str(getVersion),
+            'Auth':getSession
+        }
+
+    print (get_headers)
+# pass into the function the call and the ovAppliance
+    try:
+        resp = requests.get(uri,headers=get_headers, verify=False)
+    except Exception as e:
+            print(f"Unable to reach OV Appliance. Reason  - {e}.")
+            print(f"OV Get call ..... Failed:{resp.status_code}")
+
+#    pprint(json.loads(resp.content))
+    return resp.json()
+
+
+def postCall(post_s, post):
+    resp = None
+    body = post_s.body
+    uri = "https://{}/{}/".format(post_s.app, post_s.SessionDict[post])
+    print("POST: ", uri)
+
+    try:
+        resp = requests.post(uri, headers=post_s.post_headers, data=json.dumps(body), verify=False)
+        if (resp.status_code != 200):
+            print("OV Connection ..... Failed: ", resp.status_code)
+    except Exception as e:
+        print("Unable to reach OneView appliance. Reason  - {}.".format(e))
+        print("OV Connection ..... Failed: ",resp.status_code)
+    return resp.json()
 
 def usage():
     print("useage: get_ilo_security.py -h -l <file list> -v")
@@ -111,334 +285,58 @@ def ping(host):
     stdout, stderr = result.communicate()
     return (result.returncode)
 
-def check_ilo_security():
-    '''
-    docstring
-    '''
-
-    argv = sys.argv[1:]
-    server = []
-
-    headers = {
-        'OData-Version':'4.0',
-        'X-Auth-Token':''
-    }
-    post_data = {
-        'Ignore':False
-    }
-  
-    try:
-        opts, args = getopt.getopt(argv, "hl:v", ["help", "output="])
-    except getopt.GetoptError as err:
-        # print help information and exit:
-        print(err)  # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
-
-    in_list = None
-    verbose = False
-    for opt, arg in opts:
-        if opt in ["-v", "--verbose"]:
-            verbose = True
-        elif opt in ["-h", "--help"]:
-            usage()
-            sys.exit()
-        elif opt in ["-l", "--list"]:
-            in_list = arg
-        else:
-            assert False, "unhandled option"
-
-###
-    print("Change iLO Security settings")
-    config = {}
-    config = try_load_from_file(config)
-
-    # Ensure the OneView/Composer target exists.  If not then exit
-    print("Make sure OneView host exists ... ", end=" ")
-    hostname = config["ip"]
-    if ping (config["ip"]) == 0:
-        print(f"Success Host {hostname} found")
-    else:
-        print (f"Host {hostname} not found, exiting program")
-        exit(1)
-
-    try:
-        oneview_client = OneViewClient(config)
-    except Exception as e:
-        print('Connect Error:', e)
-        exit()
-
-    if in_list:
-        data_file = os.path.join(os.getcwd(),in_list)
-        print ("Checking: ", data_file)
-        if os.path.isfile(data_file):
-            print("Found the file")
-            with open(data_file, "r") as file:
-#                nl_break = ""
-                for readline in file:
-                    server_name = readline.rstrip('\n')
-                    tserver = oneview_client.server_hardware.get_by_name(server_name)
-                    servers.append(tserver.data)
-    else:
-        servers = oneview_client.server_hardware.get_all()
-
-    ilo_count = 0
-    for server in servers:
-        ilo_count = ilo_count + 1
-        addresses = server['mpHostInfo']['mpIpAddresses']
-        ilo_ip = addresses[len(addresses)-1]['address']
-        ilo_hostname = server['mpHostInfo']['mpHostName']
-        print("{},{},{}".format(server['name'],ilo_hostname, ilo_ip))
-        server_hw = oneview_client.server_hardware.get_by_name(server['name'])
-        remote_console = server_hw.get_remote_console_url()
-        session_id = (remote_console['remoteConsoleUrl']).split("=")[2]
-# 
-        headers['X-Auth-Token'] = session_id
-        rf_call = "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/"
-        url = "https://"+ilo_ip+rf_call
-        r_security_dashboard = requests.get(url, headers=headers, verify=False)
-        json_security_dashboard = json.loads(r_security_dashboard.content)
-    #    pprint(json_security_dashboard)
-# 
-    #     for member in json_security_dashboard['Members']:
-    #         url = "https://"+ilo_ip+member['@odata.id']
-    #         r_member = requests.get(url, headers=headers, verify=False)
-    #         json_member = json.loads(r_member.content)
-    # #        pprint(json_member)
-    #         json.dump(json_member, jsonFile)
-    #         #if json_member['Name'] == "Minimum Password Length":
-    #         #    pprint(json_member)
-    #         #    r_member = requests.patch(url, json=post_data, headers=headers, verify=False)
-    #         #    r_check= requests.get(url, headers=headers, verify=False)
-# 
-    # print("Checked {} ilos".format(ilo_count))
-
-def read_json(objects):
-
-    data_file = os.path.join(os.getcwd(),JSON_DIR, "default_security.json")
-    df = open(data_file, "r")
-    default_security_object = json.load(df)
-
-    for m in default_security_object:
-        print("Template member: ",m['@odata.id'])
-        print("Template value: ", m['Ignore'])
-
-        for security_object in objects:
-            # print("Test value: ", security_object['@odata.id'])
-            if security_object['@odata.id'] == m['@odata.id']:
-                print("Testing member: ", m['Ignore'], end="")
-                print("... against: ", security_object['Ignore'])
-                if security_object['Ignore'] == m['Ignore']:
-                    print("They match")
-
-def read_server_json(objects):
-    '''
-    docstring
-    '''    
-    
-    servers = []
-    config = []
-
-    headers = {
-        'OData-Version':'4.0',
-        'X-Auth-Token':''
-    }
-
-    post_data = {
-        'Ignore':False
-    }
-
-    print(f"Check iLO Security settings [{get_time_stamp()}]")
-
-    config = try_load_from_file(config)
-
-    # Ensure the OneView/Composer target exists.  If not then exit
-    print("Make sure OneView host exists ... ", end=" ")
-    hostname = config["ip"]
-    if ping (config["ip"]) == 0:
-        print(f"Success Host {hostname} found")
-    else:
-        print (f"Host {hostname} not found, exiting program")
-        exit(1)
-
-    try:
-        oneview_client = OneViewClient(config)
-    except Exception as e:
-        print('Connect Error:', e)
-        exit()
-
-    servers = oneview_client.server_hardware.get_all()
-
-    ilo_count = 0
-    for server in servers:
-        print("Check: ", server['name'])
-        ilo_count = ilo_count + 1
-
-        addresses = server['mpHostInfo']['mpIpAddresses']
-        ilo_ip = addresses[len(addresses)-1]['address']
-        ilo_security_json_file = server['name'].replace(' ',"").replace(',',"_")
-        ilo_security_json_file = ilo_security_json_file + "_ilo"+".json"
-        # Double check that the server directory exists
-        
-        server_hw = oneview_client.server_hardware.get_by_name(server['name'])
-        remote_console = server_hw.get_remote_console_url()
-        session_id = (remote_console['remoteConsoleUrl']).split("=")[2]
 #
-        headers['X-Auth-Token'] = session_id
-        rf_call = "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/"
-        url = "https://"+ilo_ip+rf_call
-        r_security_dashboard = requests.get(url, headers=headers, verify=False)
-        json_security_dashboard = json.loads(r_security_dashboard.content)
-        # pprint(json_security_dashboard)
-#
-        for member in json_security_dashboard['Members']:
-            url = "https://"+ilo_ip+member['@odata.id']
-            r_member = requests.get(url, headers=headers, verify=False)
-            json_member = json.loads(r_member.content)
-            
-            for security_object in objects:
-                if security_object['@odata.id'] == member['@odata.id']:
-                    print("Test value: ", security_object['@odata.id'])
-                    if security_object['Ignore'] != json_member['Ignore']:
-                        print("==================== Mismatch ====================")
-                        r_member = requests.patch(url, json=post_data, headers=headers, verify=False)
-                        r_check= requests.get(url, headers=headers, verify=False)
-                        print("ilo Security settings changed ...")
-                        pprint(json.loads(r_check.content))
-
-    return()
-'''
-For server in serverlist:
-    if !checkSecuritySettings(server, default_settings):
-        changeSettings(server)
-'''
-def check_security_settings(server_name, objects):
-    '''
-    docstring
-    '''    
-
-    headers = {
-        'OData-Version':'4.0',
-        'X-Auth-Token':''
-    }
-
-    post_data = {
-        'Ignore':False
-    }
-    config= []
-    config = try_load_from_file(config)
-    # Ensure the OneView/Composer target exists.  If not then exit
-    print("Make sure OneView host exists ... ", end=" ")
-    hostname = config["ip"]
-    if ping (config["ip"]) == 0:
-        print(f"Success Host {hostname} found")
-    else:
-        print (f"Host {hostname} not found, exiting program")
-        exit(1)
-
-    try:
-        oneview_client = OneViewClient(config)
-    except Exception as e:
-        print('Connect Error:', e)
-        exit()
-
-    server = oneview_client.server_hardware.get_by_name(server_name)
-    addresses = server.data['mpHostInfo']['mpIpAddresses']
-    ilo_ip = addresses[len(addresses)-1]['address']
-    print(f"{server.data['mpHostInfo']['mpHostName']} {ilo_ip}")
-#        
-    server_hw = oneview_client.server_hardware.get_by_name(server.data['name'])
-    remote_console = server_hw.get_remote_console_url()
-    session_id = (remote_console['remoteConsoleUrl']).split("=")[2]
-##
-    headers['X-Auth-Token'] = session_id
-    rf_call = "/redfish/v1/Managers/1/SecurityService/SecurityDashboard/SecurityParams/"
-    url = "https://"+ilo_ip+rf_call
-    r_security_dashboard = requests.get(url, headers=headers, verify=False)
-    json_security_dashboard = json.loads(r_security_dashboard.content)
-    # pprint(json_security_dashboard)
-    for member in json_security_dashboard['Members']:
-        url = "https://"+ilo_ip+member['@odata.id']
-        r_member = requests.get(url, headers=headers, verify=False)
-        json_member = json.loads(r_member.content)
-        
-        for security_object in objects:
-            if security_object['@odata.id'] == member['@odata.id']:
-                print("Test value: ", security_object['@odata.id'])
-                if security_object['Ignore'] != json_member['Ignore']:
-                    print("==================== Mismatch ====================")
-                    r_member = requests.patch(url, json=post_data, headers=headers, verify=False)
-                    r_check= requests.get(url, headers=headers, verify=False)
-                    print("ilo Security settings changed ...")
-                    pprint(json.loads(r_check.content))
-    return()
-
-def get_servers(server_file):
-    '''
-    docstring
-    '''    
-    server_list = []
-    config= []
-    config = try_load_from_file(config)
-    # Ensure the OneView/Composer target exists.  If not then exit
-    print("Make sure OneView host exists ... ", end=" ")
-    hostname = config["ip"]
-    if ping (config["ip"]) == 0:
-        print(f"Success Host {hostname} found")
-    else:
-        print (f"Host {hostname} not found, exiting program")
-        exit(1)
-
-    try:
-        oneview_client = OneViewClient(config)
-    except Exception as e:
-        print('Connect Error:', e)
-        exit()
-
-    if server_file is None:
-        servers = oneview_client.server_hardware.get_all()
-    else:
-        fd = open(server_file, "r")
-        for readline in fd:
-            server_name = readline.rstrip('\n')
-            server_list.append(server_name)
-    
-    #for server in servers:
-    #    print("Server name: ", server['name'])
-    #    server_list.append(server['name'])
-    return(server_list)
 
 if __name__ == "__main__":
 
-    argv = sys.argv[1:]  
-    try:
-        opts, args = getopt.getopt(argv, "hl:v", ["help", "output="])
-    except getopt.GetoptError as err:
-        # print help information and exit:
-        print(err)  # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
+    # Initialize parser
+    parser = argparse.ArgumentParser(description = "Script to inventory OneView Appliance")
 
-    server_file = None
-    verbose = False
-    for opt, arg in opts:
-        if opt in ["-v", "--verbose"]:
-            verbose = True
-        elif opt in ["-h", "--help"]:
-            usage()
-            sys.exit()
-        elif opt in ["-l", "--list"]:
-            server_file = arg
-        else:
-            assert False, "unhandled option"
-#
-    data_file = os.path.join(os.getcwd(),JSON_DIR, "ilo_gjp.json")
-    df = open(data_file, "r")
-    security_objects = json.load(df)
-    # read_json(security_objects)
-    # read_server_json(security_objects)
-    server_list = get_servers(server_file)
+    parser.add_argument(
+        '-d',
+        '--destination',
+        dest='comp_path',
+        action="store",
+        required=False,
+        help="The path to the destination directory",
+        default=None)
+    parser.add_argument(
+        '-o',
+        '--ovhost',
+        dest='ov_host',
+        action="store",
+        required=False,
+        help="IP of the OneView Appliance",
+        default=None)
+    parser.add_argument(
+        '-u',
+        '--user',
+        dest='ov_user',
+        action="store",
+        required=False,
+        help="OneView username to login",
+        default=None)
+    parser.add_argument(
+        '-p',
+        '--password',
+        dest='ov_pass',
+        action="store",
+        required=False,
+        help="OneView password to log in.",
+        default=None)
 
-    # check_security_settings("1-Synergy106-T, bay 2", security_objects)
-    for server in server_list:
-        check_security_settings(server, security_objects)
+    options = parser.parse_args()
+
+    print (">> ",options.comp_path)
+    s1 = gjp_class('Hello')
+    s1()
+    s1.app = options.ov_host
+    post_json = s1.class_postCall("login")
+    # post_json = postCall(s1,"login")
+    pprint(post_json)
+    get_json = getCall(s1,"version","","")
+    pprint(get_json)
+    print(get_json['currentVersion'])
+    
+    get_json = getCall(s1, "global-settings", get_json['currentVersion'], post_json['sessionID'])
+    pprint(get_json)
