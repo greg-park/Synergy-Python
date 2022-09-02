@@ -22,6 +22,7 @@
           Program does not verify that HW type matches the server found.
           Program does not limit the number of profiles to apply.  Its all or nothing
 
+Testing git and vscode
 '''
 
 import time
